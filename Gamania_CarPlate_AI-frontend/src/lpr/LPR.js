@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./LPR.css";
+// import "./LPR.css";
 import ShowImage from "./ShowImage";
 
 export default function LPR() {
