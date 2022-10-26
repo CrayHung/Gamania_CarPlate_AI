@@ -11,27 +11,24 @@
 /* 只針對grid下一層的div */
 .grid-item {
   color: black;
-  background-color: rgba(164, 205, 150, 0.846);
+  background-color: rgba(60, 28, 46, 0.846);
   padding: 10px;
   font-size: 20px;
   text-align: center;
 }
 
 .grid-title{
-  
-  background-color: white;
-  text-align: left;
+  color:white;
+  background-color: darkslategrey;
+  text-align: center;
+  padding: 10px;
+  font-size: 20px;
+  border-width: 0px 0px 5px 0px;
+  border-style: solid;
 }
 
 .item1 {
   background-color: #ddb9d6;
-  
-}
-
-.item2{
-  background-color: #62b1b7;
-  grid-column-start: 2;
-  grid-column-end: 5;
 }
 
 .item3 {
