@@ -17,9 +17,14 @@
   text-align: center;
 }
 
+.grid-title{
+  
+  background-color: white;
+  text-align: left;
+}
 
 .item1 {
-  background-color: #bd8bb4;
+  background-color: #ddb9d6;
   
 }
 
