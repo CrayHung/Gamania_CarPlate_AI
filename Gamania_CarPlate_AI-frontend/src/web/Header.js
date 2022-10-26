@@ -34,7 +34,7 @@ export default function Header() {
   // 監看點擊 (除了頭像按鈕之外的區域) 隱藏下拉選單
   document.addEventListener('click', (event) => {
     dropContentEvent(".person", event);
-    dropContentEvent(".globe", event);
+    // dropContentEvent(".globe", event);
   });
 
   const { setLang } = useContext(LangContext);
