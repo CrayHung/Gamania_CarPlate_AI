@@ -5,6 +5,8 @@ import { FormattedMessage } from "react-intl";
 
 import test from './test.json';
 import AddBook from './AddBook';
+import WhiteBlack from './WhiteBlack'
+import './BOOK.css'
 // import "./LPR.css";
 // import ShowImage from "./ShowImage";
 
@@ -59,14 +61,14 @@ const TableHeader = () => {
   const tableBody = (value, index) => {
     return (
       <tr key={index}>
-        <td>{value.visitorname}</td>
-        <td>{value.visitorunit}</td>
-        <td>{value.visitorvehicleType}</td>
-        <td>{value.visitorallowType}</td>
-        <td>{value.visitornote}</td>
-        <td>{value.visitorvisitorStartSt}</td>
-        <td>{value.visitorvisitorEndStr}</td>        
-        <td>{value.visitorplateNumber}</td>
+        <td>{value.name}</td>
+        <td>{value.unit}</td>
+        <td>{value.vehicleType}</td>
+        <td>{value.allowType}</td>
+        <td>{value.note}</td>
+        <td>{value.visitorStartSt}</td>
+        <td>{value.visitorEndStr}</td>        
+        <td>{value.plateNumber}</td>
       </tr>
     );
   };
@@ -75,7 +77,7 @@ const TableHeader = () => {
 export default function BOOK() {
   const [tableData, setTableData] = useState(test);
 
-  console.log(tableData);
+  // console.log(tableData);
 
 //   useEffect(() => {
 //     (async () => {
@@ -92,7 +94,12 @@ export default function BOOK() {
       <h1>
         <FormattedMessage id="book-table-title" />
       </h1>
+ 
+      <div className='rowC'>
       <AddBook></AddBook>
+
+      <WhiteBlack></WhiteBlack>
+      </div>
       <ReactTable
         tableData={tableData}
         sizePerPage={sizePerPage}

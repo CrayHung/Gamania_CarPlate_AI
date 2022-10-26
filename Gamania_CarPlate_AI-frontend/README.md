@@ -1,3 +1,15 @@
+# 遊戲橘子牌辨識系統
+1.沿用東南亞車辨
+2.使用組件 src/
+    1.book_system (訪客預約系統)  
+    2.language  
+    3.live (顯示即時rtsp)  
+    4.login  
+    5.regis
+    6.tab  
+    7.violation (通行之行車紀錄)
+
+
 # 東南亞車牌辨識系統
 
 ## 安裝

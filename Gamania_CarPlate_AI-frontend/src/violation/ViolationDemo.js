@@ -1,8 +1,18 @@
+/***
+ * 
+ * 
+ * fetch data
+ * 
+ */
 import ReactTable from "./table/ReactTable";
 import { useState, useEffect } from "react";
 import { FormattedMessage } from "react-intl";
 import ImgButton from "./table/ImgButton";
 import VideoButton from "./table/VideoButton";
+
+import test from '../book_system/test.json';
+
+
 
 /* Data generator */
 // function usersGererator(size) {
@@ -22,29 +32,22 @@ const TableHeader = () => {
   return (
     <tr>
       <th>
-        <FormattedMessage id="table-th1" />
+        <FormattedMessage id="visitor-unit" />
       </th>
       <th>
-        <FormattedMessage id="table-th2" />
+        <FormattedMessage id="visitor-name" />
       </th>
       <th>
-        <FormattedMessage id="table-th3" />
+        <FormattedMessage id="visitor-vehicleType" />
       </th>
       <th>
-        <FormattedMessage id="table-th4" />
+        <FormattedMessage id="visitor-allowType"  />
       </th>
       <th>
-        <FormattedMessage id="table-th5" />
+        <FormattedMessage id="visitor-plateNumber" />
       </th>
-      <th>
-        <FormattedMessage id="table-th6" />
-      </th>
-      <th>
-        <FormattedMessage id="table-th7" />
-      </th>
-      <th>
-        <FormattedMessage id="table-th8" />
-      </th>
+
+
     </tr>
   );
 };
@@ -52,34 +55,30 @@ const TableHeader = () => {
 const tableBody = (value, index) => {
   return (
     <tr key={index}>
-      <td>{value.id}</td>
-      <td>{value.roadName}</td>
-      <td>{value.eventType}</td>
-      <td>{value.reportDate}</td>
-      <td>{value.carType}</td>
+      <td>{value.unit}</td>
+      <td>{value.name}</td>
+      <td>{value.vehicleType}</td>
       <td>{value.plateNumber}</td>
       <td>
         <ImgButton imgPath={value.imgPath} />
       </td>
-      <td>
-        <VideoButton videoPath={value.videoPath} />
-      </td>
+
     </tr>
   );
 };
 
 export default function ViolationDemo() {
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState(test);
 
-  useEffect(() => {
-    (async () => {
-      const data = await fetch("https://twowayiot.com/violation/all");
-      const res = await data.json();
-      // setPost(res);
-      // console.log(res);
-      setTableData(res);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const data = await fetch("https://twowayiot.com/violation/all");
+  //     const res = await data.json();
+  //     // setPost(res);
+  //     // console.log(res);
+  //     setTableData(res);
+  //   })();
+  // }, []);
 
   return (
     <div className="App">
