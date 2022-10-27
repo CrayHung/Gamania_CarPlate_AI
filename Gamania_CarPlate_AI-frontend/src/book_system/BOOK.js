@@ -1,94 +1,79 @@
+/***
+ * 
+ * 
+ * 改URL  let url= "http://192.168.195.213:8080/allow/add";
+ *   // const [tableData, setTableData] = useState(null);
+ * 
+ */
 import React, { useEffect, useState } from "react";
 
-import ReactTable from "../violation/table/ReactTable";
 import { FormattedMessage } from "react-intl";
 
-import test from './test.json';
+// import test from './test.json';
 import AddBook from './AddBook';
-import BlackList from './BlackList'
 import AddWhite from './AddWhite'
+import AddBlack from "./AddBlack";
 import './BOOK.css'
-// import "./LPR.css";
-// import ShowImage from "./ShowImage";
+import BookList from "./BookList";
 
 
 
-/* Data generator */
-// function usersGererator(size) {
-//   let items = [];
-//   for (let i = 0; i < size; i++) {
-//     items.push({ id: i + 1, name: `Name ${i + 1}`, age: 18 + i });
-//   }
-//   return items;
-// }
-
-/* Parameter */
-// const tableData = usersGererator(100);
-
-
-const sizePerPage = 10;
-
-const TableHeader = () => {
-    return (
-      <tr>
-        <th>
-          <FormattedMessage id="visitor-name" />
-        </th>
-        <th>
-          <FormattedMessage id="visitor-unit" />
-        </th>
-        <th>
-          <FormattedMessage id="visitor-vehicleType" />
-        </th>
-        <th>
-          <FormattedMessage id="visitor-allowType" />
-        </th>
-        <th>
-          <FormattedMessage id="visitor-note" />
-        </th>
-        <th>
-          <FormattedMessage id="visitor-visitorStartStr" />
-        </th>
-        <th>
-          <FormattedMessage id="visitor-visitorEndStr" />
-        </th>
-        <th>
-          <FormattedMessage id="visitor-plateNumber" />
-        </th>
-      </tr>
-    );
-  };
-  
-  const tableBody = (value, index) => {
-    return (
-      <tr key={index}>
-        <td>{value.name}</td>
-        <td>{value.unit}</td>
-        <td>{value.vehicleType}</td>
-        <td>{value.allowType}</td>
-        <td>{value.note}</td>
-        <td>{value.visitorStartSt}</td>
-        <td>{value.visitorEndStr}</td>        
-        <td>{value.plateNumber}</td>
-      </tr>
-    );
-  };
 
 
 export default function BOOK() {
-  const [tableData, setTableData] = useState(test);
 
-  // console.log(tableData);
 
-//   useEffect(() => {
-//     (async () => {
-//       const data = await fetch("https://twowayiot.com/violation/all");
-//       const res = await data.json();
-//       // setPost(res);
-//       // console.log(res);
-//       setTableData(res);
-//     })();
-//   }, []);
+  // const [data, setData] = useState(null);
+  // const [tableData, setTableData] = useState(test);
+  // const [bookData, setBookData] = useState();
+
+
+  /**
+   * 一連進來就去抓全部資料 , 全部資料存在tableData , 預約名單存在bookData
+   */
+
+
+//    useEffect(() => {
+//     const url = "http://192.168.195.213:8080/allow/all";
+
+//     const fetchData = async () => {
+//         try {
+//             const response = await fetch(url);
+//             const json = await response.json();
+//             console.log(json);
+//             setTableData(json);
+//         } catch (error) {
+//             console.log("error", error);
+//         }
+//     };
+
+//     fetchData();
+//     console.log(tableData);
+// }, []);
+
+
+
+
+
+
+  /**去掉重複車牌 */
+    // const data = ori_data.flitter((item,index,arr)=>{
+    //   return arr.indexOf(item).plateNumber === index
+    // });
+
+
+
+  /**不顯示NULL的車牌 */
+  // const data = ori_data.filter(function (item) {
+  //   return item.plateNumber !== "NULL"
+  // });
+
+
+  /**倒序排列 */
+    // const tmp_arr = []
+    // for (let i = 0; i < data.length; i++) {
+    // tmp_arr[i] = data.pop()
+     
 
   return (
     <div className="App">
@@ -97,16 +82,16 @@ export default function BOOK() {
       </h1>
  
       <div className='rowC'>
-      <AddBook></AddBook>
-      <AddWhite></AddWhite>
-      {/* <BlackList></BlackList> */}
+      <AddBook ></AddBook>
+    
+      <AddWhite ></AddWhite>
+      {/* <AddBlack tableData={tableData}></AddBlack> */}
+      
       </div>
-      <ReactTable
-        tableData={tableData}
-        sizePerPage={sizePerPage}
-        tableHeader={TableHeader}
-        tableBody={tableBody}
-      />
+
+      <BookList></BookList>
+
+
     </div>
   );
 }

@@ -1,34 +1,33 @@
 import React, { useState,useEffect } from 'react';
-import { Modal, Button, Form } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import ReactTable from "../violation/table/ReactTable";
 
 
 const sizePerPage = 10;
 
-const BlackList = ({tableData}) => {
-
-    const [blackData, setBlackData] = useState(tableData);
-
-
-
+export default function BookList() {
+    const [tableData, setTableData] = useState("");
 
     useEffect(() => {
-        handleGetData();
-      }, [tableData]);
-
-
-        const handleGetData = () => {
-            let arrblack = [];
-            arrblack = blackData.filter(function (value, arr) {
-                return value.allowType === "not allow";
-            });
-
-            setBlackData(arrblack);
-            //setWhiteData(arrwhite);
-            // handleShow();
+        const url = "http://192.168.195.213:8080/allow/all";
     
-        }
+        const fetchData = async () => {
+            try {
+                const response = await fetch(url);
+                const json = await response.json();
+                const data = json.filter(function (item) {
+                    return item.visitorStartStr!== "";
+                });
+
+                setTableData(data);
+            } catch (error) {
+                console.log("error", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
 
 
     const TableHeader = () => {
@@ -50,6 +49,12 @@ const BlackList = ({tableData}) => {
                 <th>
                     <FormattedMessage id="visitor-note" />
                 </th>
+                <th>
+                    <FormattedMessage id="visitor-visitorStartStr" />
+                </th>
+                <th>
+                    <FormattedMessage id="visitor-visitorEndStr" />
+                </th>
 
                 <th>
                     <FormattedMessage id="visitor-plateNumber" />
@@ -67,6 +72,8 @@ const BlackList = ({tableData}) => {
                 <td>{value.vehicleType}</td>
                 <td>{value.allowType}</td>
                 <td>{value.note}</td>
+                <td>{value.visitorStartStr}</td>
+                <td>{value.visitorEndStr}</td>
                 <td>{value.plateNumber}</td>
             </tr>
         )
@@ -76,7 +83,7 @@ const BlackList = ({tableData}) => {
         <div>
 
                     <ReactTable
-                        tableData={blackData}
+                        tableData={tableData}
                         sizePerPage={sizePerPage}
                         tableHeader={TableHeader}
                         tableBody={tableBody}
@@ -86,4 +93,4 @@ const BlackList = ({tableData}) => {
     );
 }
 
-export default BlackList;
+

@@ -7,103 +7,79 @@
  * 
  * 
  */
- import React, { useState,useEffect } from 'react';
+ import React, { useState } from 'react';
  import { Modal, Button } from "react-bootstrap";
  import { useForm } from "react-hook-form";
- import WhiteList from './WhiteList'
+ import './AddBlack.css';
+ import BlackList from './BlackList';
  
  
- const AddWhite = () => {
-
-
-    const [bookData, setBookData] = useState();
-
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    const { register, handleSubmit, formState: { errors } } = useForm();
-
-
-     /**表單送出 */
-     const onSubmit = (data) => {
-
-        // let tmpstartstr = ''
-        // let tmpendstr = ''
-        // let str = ''
-        // tmpstartstr = data.visitorStartStr.replace("T", " ");
-        // tmpendstr = data.visitorEndStr.replace("T", " ");
-        // // str = tmpstr + ':00'
-        // data.visitorStartStr = tmpstartstr;
-        // data.visitorEndStr = tmpendstr;
-        setBookData(data);
-        const finalData = data
-
-
-        console.log(data.visitorStartStr)
-        console.log(data.visitorEndStr)
-
-        console.log("送出的資料是");
-        //console.log(bookData);
-        console.log(finalData);
-
-
-        const savebackDB = async () => {
-
-
-
-            let url = "http://192.168.195.213:8080/allow/add";
-            query()
-            function query() {
-                fetch(url, {
-
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(finalData)
-
-                })
-                    // .then(res => res.json())
-                    // .catch(error => console.error('Error:', error))
-                    .then(response => {
-
-
-                        console.log('success', response);
-                        handleClose();
-                    }
-                    );
-            }
-
-        }
-        savebackDB();
-
-    }
-
+ 
+ const AddBlack = ({tableData}) => {
  
      
+ function savebackDB(data) {
+     
+     let url= "http://192.168.195.213:8080/allow/add";
+     fetch(url, {
+ 
+         method: 'POST',
+         headers: {
+             'Accept': 'application/json',
+         'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(data)
+ 
+     })
+         .then(res => res.json())
+         .catch(error => console.error('Error:', error))
+         .then(response => {
+ 
+         
+             console.log('success', response);
+             // setShow(false);
+             handleClose();
+         }
+             );
+ 
+ }
+ 
+     const { register, handleSubmit , formState: { errors }} = useForm();
+     const onSubmit = data =>{ 
+         console.log(data);
+ 
+         setBookData(data);
+         savebackDB(bookData);
+ 
+     }
+ 
+     const [bookData, setBookData] = useState();
+     
+     const [show, setShow] = useState(false);
+     const handleClose = () => setShow(false);
+     const handleShow = () => setShow(true);
  
  
      return (
          <div>
  
-             <Button variant="primary" style={{margin:"8px"}} onClick={handleShow}>
-                 新增白名單車輛
+             <Button variant="danger" style={{margin:"8px"}} onClick={handleShow}>
+                 新增黑名單車輛
              </Button>
  
              <Modal show={show} onHide={handleClose} visible="true" size='xl'>
              <Modal.Header closeButton>
-             <Modal.Title>新增白名單車輛</Modal.Title>
+             <Modal.Title>新增黑名單車輛</Modal.Title>
                  </Modal.Header>
              <form onSubmit={handleSubmit(onSubmit)}>
  
  
-                 <Modal.Body>         
+                 <Modal.Body>
                     <div className="right">
-                           <WhiteList ></WhiteList>
+                           <BlackList tableData={tableData}></BlackList>
                     </div>
 
                     <div className="left">
- 
- 
                          <div>
                          <span>姓名: </span>
                          {/* <input placeholder='不可空白' defaultValue={null} {...register("name", { required: true, maxLength: 5 })} /> */}
@@ -125,11 +101,11 @@
                          </div>
                          <div>
                          <span>資格: </span>
-                         {/* <input readOnly="readOnly"  defaultValue={"員工"} {...register("allowType")} /> */}
-                         <select defaultValue={'員工'} {...register("allowType", { required: true })}>
+                         <input readOnly="readOnly" placeholder='黑名單' defaultValue={"not allow"} {...register("allowType")} />
+                         {/* <select defaultValue={'員工'} {...register("allowType", { required: true })}>
                             <option value="員工">員工</option>
                             <option value="廠商">廠商</option>
-                        </select>
+                        </select> */}
                          </div>
                          <div>
                          <span>備註: </span>
@@ -142,9 +118,11 @@
  
                          
                          {errors.exampleRequired && <span>必須輸入</span>}
-                         </div>
-                 </Modal.Body>
 
+                    </div>
+
+
+                 </Modal.Body>
                  <Modal.Footer>
                      <Button variant="secondary" onClick={handleClose}>
                          關閉
@@ -152,8 +130,8 @@
                      <Button variant="primary" type="submit" >
                          新增
                      </Button>
+     
                      {/* <>新增成功視窗關閉</> */}
-
                  </Modal.Footer>
                  </form>
              </Modal>
@@ -163,5 +141,5 @@
      );
  }
  
- export default AddWhite;
+ export default AddBlack;
  

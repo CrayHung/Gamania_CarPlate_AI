@@ -1,34 +1,34 @@
 import React, { useState,useEffect } from 'react';
-import { Modal, Button, Form } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import ReactTable from "../violation/table/ReactTable";
 
 
 const sizePerPage = 10;
 
-const BlackList = ({tableData}) => {
+const WhiteList = () => {
 
-    const [blackData, setBlackData] = useState(tableData);
-
-
-
+    const [tableData, setTableData] = useState("");
 
     useEffect(() => {
-        handleGetData();
-      }, [tableData]);
-
-
-        const handleGetData = () => {
-            let arrblack = [];
-            arrblack = blackData.filter(function (value, arr) {
-                return value.allowType === "not allow";
-            });
-
-            setBlackData(arrblack);
-            //setWhiteData(arrwhite);
-            // handleShow();
+        const url = "http://192.168.195.213:8080/allow/all";
     
-        }
+        const fetchData = async () => {
+            try {
+                const response = await fetch(url);
+                const json = await response.json();
+              
+
+                setTableData(json);
+            } catch (error) {
+                console.log("error", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
+
 
 
     const TableHeader = () => {
@@ -76,7 +76,7 @@ const BlackList = ({tableData}) => {
         <div>
 
                     <ReactTable
-                        tableData={blackData}
+                        tableData={tableData}
                         sizePerPage={sizePerPage}
                         tableHeader={TableHeader}
                         tableBody={tableBody}
@@ -86,4 +86,4 @@ const BlackList = ({tableData}) => {
     );
 }
 
-export default BlackList;
+export default WhiteList;

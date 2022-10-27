@@ -1,7 +1,7 @@
 /***
  * 
  * 
- * fetch data
+ * fetch 過去的通行紀錄
  * 
  */
 import ReactTable from "./table/ReactTable";
@@ -46,6 +46,9 @@ const TableHeader = () => {
       <th>
         <FormattedMessage id="visitor-plateNumber" />
       </th>
+      <th>
+        <FormattedMessage id="table-th7" />
+      </th>
 
 
     </tr>
@@ -58,6 +61,7 @@ const tableBody = (value, index) => {
       <td>{value.unit}</td>
       <td>{value.name}</td>
       <td>{value.vehicleType}</td>
+      <td>{value.allowType}</td>
       <td>{value.plateNumber}</td>
       <td>
         <ImgButton imgPath={value.imgPath} />
