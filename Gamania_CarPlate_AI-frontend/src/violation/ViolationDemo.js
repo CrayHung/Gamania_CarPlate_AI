@@ -1,9 +1,9 @@
 /***
  * 
  * 
- * fetch    http://192.168.195.213:8080/lpr/all
+ * fetch    http://127.0.0.1:8080/lpr/all
  * 
- * 圖片     http://192.168.195.213:8080/jpg/20221027_154658894_RCV-5981.jpg      (將./jpg/20221027_154658894_RCV-5981.jpg前面的.去掉)
+ * 圖片     http://127.0.0.1:8080/jpg/20221027_154658894_RCV-5981.jpg      (將./jpg/20221027_154658894_RCV-5981.jpg前面的.去掉)
  *          上傳之前要把 192.168.195.213 > 127.0.0.1
  */
 import ReactTable from "./table/ReactTable";
@@ -23,7 +23,7 @@ export default function ViolationDemo() {
 
 
   useEffect(() => {
-    const url = "http://192.168.195.213:8080/lpr/all";
+    const url = "http://127.0.0.1:8080/lpr/all";
 
     const fetchData = async () => {
         try {

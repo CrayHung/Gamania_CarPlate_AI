@@ -26,7 +26,7 @@ function ImgButton(props) {
 return <>
     <button type="button" className="btn btn-primary btn-option" onClick={showModal}><FormattedMessage id="Img-btn" /></button>
     <Modal title={<FormattedMessage id="Img-btn" />} centered width={1000} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-		  <Image src={`http://192.168.195.213:8080${imagePath}`} width={960} height={540} />
+		  <Image src={`http://127.0.0.1:8080${imagePath}`} width={960} height={540} />
 		</Modal>
             </>
 }

@@ -20,7 +20,7 @@
      
  function savebackDB(data) {
      
-     let url= "http://192.168.195.213:8080/allow/add";
+     let url= "http://127.0.0.1:8080/allow/add";
      fetch(url, {
  
          method: 'POST',
