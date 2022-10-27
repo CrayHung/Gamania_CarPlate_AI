@@ -61,4 +61,8 @@
   ,"visitor-plateNumber": "車牌號碼"  
 
   ,"black-list": "黑名單"
+
+  ,"recognitionTimeStr": "辨識時間"
+  ,"passStatus":"狀態"
+  ,"cameraId":"攝影機"
 }

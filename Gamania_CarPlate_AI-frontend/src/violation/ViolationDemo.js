@@ -1,88 +1,54 @@
 /***
  * 
  * 
- * fetch 過去的通行紀錄
+ * fetch    http://192.168.195.213:8080/lpr/all
  * 
+ * 圖片     http://192.168.195.213:8080/jpg/20221027_154658894_RCV-5981.jpg      (將./jpg/20221027_154658894_RCV-5981.jpg前面的.去掉)
+ *          上傳之前要把 192.168.195.213 > 127.0.0.1
  */
 import ReactTable from "./table/ReactTable";
 import { useState, useEffect } from "react";
 import { FormattedMessage } from "react-intl";
 import ImgButton from "./table/ImgButton";
-import VideoButton from "./table/VideoButton";
-
-import test from '../book_system/test.json';
 
 
 
-/* Data generator */
-// function usersGererator(size) {
-//   let items = [];
-//   for (let i = 0; i < size; i++) {
-//     items.push({ id: i + 1, name: `Name ${i + 1}`, age: 18 + i });
-//   }
-//   return items;
-// }
-
-/* Parameter */
-// const tableData = usersGererator(100);
-
-const sizePerPage = 10;
-
-const TableHeader = () => {
-  return (
-    <tr>
-      <th>
-        <FormattedMessage id="visitor-unit" />
-      </th>
-      <th>
-        <FormattedMessage id="visitor-name" />
-      </th>
-      <th>
-        <FormattedMessage id="visitor-vehicleType" />
-      </th>
-      <th>
-        <FormattedMessage id="visitor-allowType"  />
-      </th>
-      <th>
-        <FormattedMessage id="visitor-plateNumber" />
-      </th>
-      <th>
-        <FormattedMessage id="table-th7" />
-      </th>
 
 
-    </tr>
-  );
-};
-
-const tableBody = (value, index) => {
-  return (
-    <tr key={index}>
-      <td>{value.unit}</td>
-      <td>{value.name}</td>
-      <td>{value.vehicleType}</td>
-      <td>{value.allowType}</td>
-      <td>{value.plateNumber}</td>
-      <td>
-        <ImgButton imgPath={value.imgPath} />
-      </td>
-
-    </tr>
-  );
-};
 
 export default function ViolationDemo() {
-  const [tableData, setTableData] = useState(test);
+  const [tableData, setTableData] = useState("");
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const data = await fetch("https://twowayiot.com/violation/all");
-  //     const res = await data.json();
-  //     // setPost(res);
-  //     // console.log(res);
-  //     setTableData(res);
-  //   })();
-  // }, []);
+
+
+
+  useEffect(() => {
+    const url = "http://192.168.195.213:8080/lpr/all";
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            for (let i = 0; i < data.length; i++) {
+              const eTime0 = data[i]["imagePath"].replace("./", "/");
+              data[i]["imagePath"] = eTime0;
+            }
+          
+            setTableData(data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
+
+    fetchData();
+}, []);
+console.log(tableData);
+
+
+
+
+
 
   return (
     <div className="App">
@@ -98,3 +64,49 @@ export default function ViolationDemo() {
     </div>
   );
 }
+
+
+const sizePerPage = 10;
+
+const TableHeader = () => {
+  return (
+    <tr>
+      <th>
+        <FormattedMessage id="visitor-plateNumber" />
+      </th>
+      <th>
+        <FormattedMessage id="recognitionTimeStr" />
+      </th>
+      <th>
+        <FormattedMessage id="passStatus"  />
+      </th>
+      <th>
+        <FormattedMessage id="cameraId"  />
+      </th>
+
+      <th>
+        <FormattedMessage id="table-th7" />
+      </th>
+
+
+
+    </tr>
+  );
+};
+
+const tableBody = (value, index) => {
+
+  return (
+    <tr key={index}>
+      <td>{value.plateNumber}</td>
+      <td>{value.recognitionTimeStr}</td>
+      <td>{value.passStatus}</td>
+      <td>{value.cameraId}</td>
+      <td>
+        <ImgButton imagePath={value.imagePath} />
+      </td>
+
+    </tr>
+  );
+};
+
