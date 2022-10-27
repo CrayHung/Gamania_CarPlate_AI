@@ -15,7 +15,7 @@ import ReactTable from "../violation/table/ReactTable";
 
 const sizePerPage = 10;
 
-const WhiteBlack = () => {
+const BlackList = () => {
 
     const [blackData, setBlackData] = useState(test);
     const [whiteData, setWhiteData] = useState(test);
@@ -115,7 +115,7 @@ const WhiteBlack = () => {
 
             <Modal show={show} onHide={handleClose} >
                 <Modal.Header closeButton>
-                    <Modal.Title>黑名單</Modal.Title>
+                    <Modal.Title>黑名單列表</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <ReactTable
@@ -139,4 +139,4 @@ const WhiteBlack = () => {
     );
 }
 
-export default WhiteBlack;
+export default BlackList;

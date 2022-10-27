@@ -8,7 +8,7 @@
  * 
  */
 import React, { useState } from 'react';
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 
 
@@ -35,15 +35,16 @@ function savebackDB(data) {
 
         
             console.log('success', response);
-            setShow(false);
+            // setShow(false);
+            handleClose();
         }
             );
 
 }
 
-    const { register, handleSubmit , watch, formState: { errors }} = useForm();
+    const { register, handleSubmit ,  formState: { errors }} = useForm();
     const onSubmit = data =>{ 
-       // console.log(data);
+        console.log(data);
 
         let tmpstr = ''
         let str = ''
@@ -71,7 +72,7 @@ function savebackDB(data) {
         <div>
 
             <Button variant="primary" onClick={handleShow}>
-                新增預約
+                新增訪客預約
             </Button>
 
             <Modal show={show} onHide={handleClose} visible="true">
@@ -94,11 +95,17 @@ function savebackDB(data) {
                         </div>
                         <div>
                         <span>車種: </span>
-                        <input placeholder='摩托車' defaultValue={null} {...register("vehicleType")} />
+                        {/* <input placeholder='摩托車' defaultValue={null} {...register("vehicleType")} /> */}
+                        <select defaultValue={'摩托車'} {...register("vehicleType", { required: true })}>
+                            <option value="摩托車" >摩托車</option>
+                            <option value="汽車">汽車</option>
+                            <option value="貨車">貨車</option>
+
+                        </select>
                         </div>
                         <div>
-                        <span>許可: </span>
-                        <input placeholder='訪客 ' defaultValue={null} {...register("allowType")} />
+                        <span>資格: </span>
+                        <input readOnly="readOnly"  defaultValue={"訪客"} {...register("allowType")} />
                         </div>
                         <div>
                         <span>備註: </span>
@@ -127,6 +134,7 @@ function savebackDB(data) {
                     <Button variant="primary" type="submit" >
                         提交預約
                     </Button>
+                    <>預約成功視窗關閉</>
                 </Modal.Footer>
                 </form>
             </Modal>

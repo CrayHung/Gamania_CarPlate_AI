@@ -5,7 +5,8 @@ import { FormattedMessage } from "react-intl";
 
 import test from './test.json';
 import AddBook from './AddBook';
-import WhiteBlack from './WhiteBlack'
+import BlackList from './BlackList'
+import AddWhite from './AddWhite'
 import './BOOK.css'
 // import "./LPR.css";
 // import ShowImage from "./ShowImage";
@@ -97,8 +98,8 @@ export default function BOOK() {
  
       <div className='rowC'>
       <AddBook></AddBook>
-
-      <WhiteBlack></WhiteBlack>
+      <AddWhite></AddWhite>
+      {/* <BlackList></BlackList> */}
       </div>
       <ReactTable
         tableData={tableData}
