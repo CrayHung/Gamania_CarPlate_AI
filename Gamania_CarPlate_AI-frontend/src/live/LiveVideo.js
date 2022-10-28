@@ -12,11 +12,15 @@ export default function LiveVideo() {
   // const sourceCar2 = "http://192.168.195.213:8081/stream/cam2/index.m3u8";
   // const sourceCar3 = "http://192.168.195.213:8081/stream/cam3/index.m3u8";
 
+  const ip = window.location.host.split(":")[0];
+
   //現場URL
-  const sourceMotor = "http://127.0.0.1:8081/stream/cam4/index.m3u8";
-  const sourceCar1 = "http://127.0.0.1:8081/stream/cam1/index.m3u8";
-  const sourceCar2 = "http://127.0.0.1:8081/stream/cam2/index.m3u8";
-  const sourceCar3 = "http://127.0.0.1:8081/stream/cam3/index.m3u8";
+  const sourceMotor = `http://${ip}:8081/stream/cam4/index.m3u8`;
+  const sourceCar1 = `http://${ip}:8081/stream/cam1/index.m3u8`;
+  const sourceCar2 = `http://${ip}:8081/stream/cam2/index.m3u8`;
+  const sourceCar3 = `http://${ip}:8081/stream/cam3/index.m3u8`;
+
+  console.log(sourceMotor);
 
   const [cam1, setCam1] = useState({});
   const [cam2, setCam2] = useState({});
@@ -24,8 +28,9 @@ export default function LiveVideo() {
   const [cam4, setCam4] = useState({});
 
   const cam_update = async () => {
+    const ip = window.location.host.split(":")[0];
     // const res = await fetch("http://192.168.195.213:8080/lpr/cams/latest");
-    const res = await fetch("http://127.0.0.1:8080/lpr/cams/latest");
+    const res = await fetch(`http://${ip}:8080/lpr/cams/latest`);
     const res_tmp = await res.json();
     res_tmp.cam4.imagePath = res_tmp.cam4.imagePath.substring(1);
     res_tmp.cam1.imagePath = res_tmp.cam1.imagePath.substring(1);
@@ -38,9 +43,11 @@ export default function LiveVideo() {
   };
 
   useEffect(() => {
+    const ip = window.location.host.split(":")[0];
+
     cam_update();
 
-    const wsUrl = "ws://127.0.0.1:8080/ws";
+    const wsUrl = `ws://${ip}:8080/ws`;
     const ws = new WebSocket(wsUrl);
 
     ws.onopen = () => {
@@ -130,7 +137,7 @@ export default function LiveVideo() {
             <img
               alt=""
               // src={"http://192.168.195.213:8080" + cam4.imagePath}
-              src={cam4.imagePath}
+              src={`http://${ip}:8080/${cam4.imagePath}`}
               width={"100%"}
             ></img>
           </div>
@@ -140,7 +147,7 @@ export default function LiveVideo() {
             <img
               alt=""
               // src={"http://192.168.195.213:8080" + cam1.imagePath}
-              src={cam1.imagePath}
+              src={`http://${ip}:8080/${cam1.imagePath}`}
               width={"100%"}
             ></img>
           </div>
@@ -150,7 +157,7 @@ export default function LiveVideo() {
             <img
               alt=""
               // src={"http://192.168.195.213:8080" + cam2.imagePath}
-              src={cam2.imagePath}
+              src={`http://${ip}:8080/${cam2.imagePath}`}
               width={"100%"}
             ></img>
           </div>
@@ -160,7 +167,7 @@ export default function LiveVideo() {
             <img
               alt=""
               // src={"http://192.168.195.213:8080" + cam3.imagePath}
-              src={cam3.imagePath}
+              src={`http://${ip}:8080/${cam3.imagePath}`}
               width={"100%"}
             ></img>
           </div>
