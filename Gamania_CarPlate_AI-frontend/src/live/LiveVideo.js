@@ -85,26 +85,22 @@ export default function LiveVideo() {
         </div>
         <div className="grid-item item4">
           <div className="col">
-            <div className="col">
-              <ReactHlsPlayer
-                src={sourceCar2}
-                autoPlay={true}
-                muted={true}
-                width={"100%"}
-              />
-            </div>
+            <ReactHlsPlayer
+              src={sourceCar2}
+              autoPlay={true}
+              muted={true}
+              width={"100%"}
+            />
           </div>
         </div>
         <div className="grid-item item4">
           <div className="col">
-            <div className="col">
-              <ReactHlsPlayer
-                src={sourceCar3}
-                autoPlay={true}
-                muted={true}
-                width={"100%"}
-              />
-            </div>
+            <ReactHlsPlayer
+              src={sourceCar3}
+              autoPlay={true}
+              muted={true}
+              width={"100%"}
+            />
           </div>
         </div>
       </div>
@@ -126,7 +122,10 @@ export default function LiveVideo() {
         </div>
       </div>
       <div className="grid">
-        <div className="grid-item item3">
+        <div
+          className="grid-item item3"
+          style={{ width: "100%", height: "100%" }}
+        >
           <div>
             <img
               alt=""
