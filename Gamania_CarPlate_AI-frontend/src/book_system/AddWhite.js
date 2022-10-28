@@ -52,7 +52,7 @@
 
 
 
-            let url = "http://127.0.0.1:8080/allow/add";
+            let url = "http://192.168.195.213:8080/allow/add";
             query()
             function query() {
                 fetch(url, {
@@ -124,12 +124,10 @@
                         </select>
                          </div>
                          <div>
-                         <span>資格: </span>
-                         {/* <input readOnly="readOnly"  defaultValue={"員工"} {...register("allowType")} /> */}
-                         <select defaultValue={'員工'} {...register("allowType", { required: true })}>
-                            <option value="員工">員工</option>
-                            <option value="廠商">廠商</option>
-                        </select>
+                         {/* <span>資格: </span>
+                         <input readOnly="readOnly"  defaultValue={"白名單"} {...register("allowType")} /> */}
+                         <input type="hidden" defaultValue={"白名單"} {...register("allowType")} />
+           
                          </div>
                          <div>
                          <span>備註: </span>

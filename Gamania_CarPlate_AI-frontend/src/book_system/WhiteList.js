@@ -10,7 +10,7 @@ const WhiteList = () => {
     const [tableData, setTableData] = useState("");
 
     useEffect(() => {
-        const url = "http://127.0.0.1:8080/allow/all";
+        const url = "http://192.168.195.213:8080/allow/all";
     
         const fetchData = async () => {
             try {

@@ -1,32 +1,147 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useContext } from 'react';
 import { FormattedMessage } from "react-intl";
 import ReactTable from "../violation/table/ReactTable";
+import {BookContext} from './BOOK'
 
 
 const sizePerPage = 10;
 
 export default function BookList() {
-    const [tableData, setTableData] = useState("");
 
-    useEffect(() => {
-        const url = "http://127.0.0.1:8080/allow/all";
+    const { tableData, setTableData } = useContext(BookContext);
+
+
+    const freshFetch =async ()=>{
+
+        const olddata = tableData
+        console.log('olddata')
+        console.log(olddata)
+        console.log(typeof(olddata))
+
+        const url = "http://192.168.195.213:8080/allow/all"
+        const result =await fetch(url)
+        const newd = await result.json()
+        
+        console.log('newdata')
+        console.log(newd)
+        console.log(typeof(newd))
+         setTableData(newd)
+        // if(newd!=olddata){
+        //     console.log('true');
+        //     //setTableData(newd)
+        // }
+    }
+
+    // useEffect(()=>{
+    //     freshFetch();
+    // },[tableData])
+            
+
+
+    // useEffect(() => {
+    //     const url = "http://192.168.195.213:8080/allow/all";
     
-        const fetchData = async () => {
-            try {
-                const response = await fetch(url);
-                const json = await response.json();
-                const data = json.filter(function (item) {
-                    return item.visitorStartStr!== "";
-                });
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await fetch(url);
+    //             const json = await response.json();
+    //             const data = json.filter(function (item) {
+    //                 return item.visitorStartStr!== "";
+    //             });
 
-                setTableData(data);
-            } catch (error) {
-                console.log("error", error);
-            }
-        };
 
-        fetchData();
-    }, []);
+    //             /**倒序排列 */
+    //             const tmp_arr = []
+    //             for (let i = 0; i < data.length; i++) {
+    //             tmp_arr[i] = data.pop()
+    //             }
+
+    //             setTableData(tmp_arr);
+
+    //             //setTableData(data);
+    //         } catch (error) {
+    //             console.log("error", error);
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, []);
+
+    /********************************************************************************* */
+
+    // useEffect(() => {
+    
+
+    // const fetchData = async () => {
+
+    //         const url = "http://192.168.195.213:8080/allow/all";
+    //         fetch(url)
+    //             .then(res => res.json())
+
+
+    //             .catch(error => {
+    //                 setIsLoading(false);
+    //                 setIsError(true);
+    //                 console.error('Error:', error)
+    //             })
+    //             .then(response => {
+    //                  const newData = response
+    //                 setTableData(oldData=>[...oldData , newData])
+    //                 // setIsLoading(true);
+    //                 // //只返回預約時間不空的資料
+    //                 // const data = response.filter(function (item) {
+    //                 // return item.visitorStartStr!== "";
+    //                 // });
+
+    //                 // /**倒序排列 */
+    //                 // const tmp_arr = []
+    //                 // for (let i = 0; i < data.length; i++) {
+    //                 // tmp_arr[i] = data.pop()
+    //                 // }
+
+    //                 // console.log('oldData')
+    //                 // console.log(tmp_arr)
+    //                 // // setTableData(data=>[...tableData,tmp_arr])
+    //                 // setTableData(tmp_arr)
+                   
+    //             });
+               
+    //     }
+
+    //     fetchData();
+
+    // }, []);
+
+
+/********************************************************************************************** */
+
+
+        
+    
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const url = "http://192.168.195.213:8080/allow/all";
+    //         fetch(url)
+    //             .then(res => res.json())
+    //             .catch(error => console.error('Error:', error))
+    //             .then(response => {
+
+    //                 setTableData(response)
+                    
+    //             });
+               
+    //         console.log('1st fetch data in fetchData()')
+    //         console.log(tableData)
+    //     }
+    //     fetchData();
+    // },[])
+
+
+
+
+
+
 
 
 

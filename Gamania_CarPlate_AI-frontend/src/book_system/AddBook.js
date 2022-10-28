@@ -7,15 +7,16 @@
  * 
  * 
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useContext} from 'react';
 import { Modal, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import {BookContext} from './BOOK'
 
 
 
 const AddBook = () => {
 
-
+    const { tableData, setTableData } = useContext(BookContext);
 
 
     const [bookData, setBookData] = useState();
@@ -38,6 +39,7 @@ const AddBook = () => {
         data.visitorStartStr = tmpstartstr;
         data.visitorEndStr = tmpendstr;
         setBookData(data);
+        //setTableData(data);
         const finalData = data
 
 
@@ -53,7 +55,7 @@ const AddBook = () => {
 
 
 
-            let url = "http://127.0.0.1:8080/allow/add";
+            let url = "http://192.168.195.213:8080/allow/add";
             query()
             function query() {
                 fetch(url, {
@@ -66,8 +68,8 @@ const AddBook = () => {
                     // .then(res => res.json())
                     // .catch(error => console.error('Error:', error))
                     .then(response => {
-
-
+                        
+                        setTableData([...tableData,data])
                         console.log('success', response);
                         handleClose();
                     }

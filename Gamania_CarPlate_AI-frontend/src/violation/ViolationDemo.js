@@ -1,18 +1,15 @@
 /***
  * 
  * 
- * fetch    http://127.0.0.1:8080/lpr/all
+ * fetch    http://192.168.195.213:8080/lpr/all
  * 
- * 圖片     http://127.0.0.1:8080/jpg/20221027_154658894_RCV-5981.jpg      (將./jpg/20221027_154658894_RCV-5981.jpg前面的.去掉)
- *          上傳之前要把 192.168.195.213 > 127.0.0.1
+ * 圖片     http://192.168.195.213:8080/jpg/20221027_154658894_RCV-5981.jpg      (將./jpg/20221027_154658894_RCV-5981.jpg前面的.去掉)
+ *          上傳之前要把 192.168.195.213 > 192.168.195.213
  */
 import ReactTable from "./table/ReactTable";
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import { FormattedMessage } from "react-intl";
 import ImgButton from "./table/ImgButton";
-
-
-
 
 
 
@@ -20,11 +17,20 @@ export default function ViolationDemo() {
   const [tableData, setTableData] = useState("");
 
 
+  const ip = window.location.host.split(":")[0];
 
+  //現場URL
+  const serverUrl = `http://${ip}:8080/`;
 
   useEffect(() => {
-    const url = "http://127.0.0.1:8080/lpr/all";
+    /**開發用 */
+    const url = "http://192.168.195.213:8080/lpr/all";
 
+    //const url = serverUrl+"lpr/all";
+
+
+    console.log('url')
+  console.log(url)
     const fetchData = async () => {
         try {
             const response = await fetch(url);
