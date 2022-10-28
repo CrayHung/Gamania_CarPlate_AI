@@ -5,7 +5,7 @@
  *   // const [tableData, setTableData] = useState(null);
  * 
  */
-import React, { useEffect, useState , createContext  } from "react";
+import React, { useEffect, useState , createContext ,useContext } from "react";
 
 import { FormattedMessage } from "react-intl";
 
@@ -15,6 +15,7 @@ import AddWhite from './AddWhite'
 import AddBlack from "./AddBlack";
 import './BOOK.css'
 import BookList from "./BookList";
+import {urlContext} from '../web/Root'
 
 
 export const BookContext = createContext();
@@ -22,12 +23,13 @@ export const BookContext = createContext();
 
 export default function BOOK() {
 
+  const serverUrl = useContext(urlContext);
   const [tableData, setTableData] = useState("");
 
 useEffect(() => {
         const fetchData = async () => {
-            const url = "http://192.168.195.213:8080/allow/all";
-            fetch(url)
+            const fetchurl = serverUrl+"allow/all";
+            fetch(fetchurl)
                 .then(res => res.json())
                 .catch(error => console.error('Error:', error))
                 .then(response => {
@@ -36,8 +38,6 @@ useEffect(() => {
                     
                 });
                
-            console.log('1st fetch data in fetchData()')
-            console.log(tableData)
         }
         fetchData();
     },[])

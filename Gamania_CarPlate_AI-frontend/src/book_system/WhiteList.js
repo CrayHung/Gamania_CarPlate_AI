@@ -1,20 +1,21 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useContext } from 'react';
 import { FormattedMessage } from "react-intl";
 import ReactTable from "../violation/table/ReactTable";
-
+import {urlContext} from '../web/Root'
 
 const sizePerPage = 10;
 
 const WhiteList = () => {
 
+    const serverUrl = useContext(urlContext);
     const [tableData, setTableData] = useState("");
 
     useEffect(() => {
-        const url = "http://192.168.195.213:8080/allow/all";
+        const fetchurl = serverUrl+"allow/all";
     
         const fetchData = async () => {
             try {
-                const response = await fetch(url);
+                const response = await fetch(fetchurl);
                 const json = await response.json();
               
 

@@ -2,12 +2,13 @@ import React, { useState,useEffect, useContext } from 'react';
 import { FormattedMessage } from "react-intl";
 import ReactTable from "../violation/table/ReactTable";
 import {BookContext} from './BOOK'
+import {urlContext} from '../web/Root'
 
 
 const sizePerPage = 10;
 
 export default function BookList() {
-
+    const serverUrl = useContext(urlContext);
     const { tableData, setTableData } = useContext(BookContext);
 
 
@@ -18,24 +19,16 @@ export default function BookList() {
         console.log(olddata)
         console.log(typeof(olddata))
 
-        const url = "http://192.168.195.213:8080/allow/all"
-        const result =await fetch(url)
+        const fetchurl = serverUrl+"allow/all"
+        const result =await fetch(fetchurl)
         const newd = await result.json()
         
         console.log('newdata')
         console.log(newd)
         console.log(typeof(newd))
          setTableData(newd)
-        // if(newd!=olddata){
-        //     console.log('true');
-        //     //setTableData(newd)
-        // }
+      
     }
-
-    // useEffect(()=>{
-    //     freshFetch();
-    // },[tableData])
-            
 
 
     // useEffect(() => {
@@ -114,29 +107,6 @@ export default function BookList() {
 
 
 /********************************************************************************************** */
-
-
-        
-    
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const url = "http://192.168.195.213:8080/allow/all";
-    //         fetch(url)
-    //             .then(res => res.json())
-    //             .catch(error => console.error('Error:', error))
-    //             .then(response => {
-
-    //                 setTableData(response)
-                    
-    //             });
-               
-    //         console.log('1st fetch data in fetchData()')
-    //         console.log(tableData)
-    //     }
-    //     fetchData();
-    // },[])
-
 
 
 

@@ -7,15 +7,15 @@
  * 
  * 
  */
- import React, { useState,useEffect } from 'react';
+ import React, { useState,useEffect ,useContext} from 'react';
  import { Modal, Button } from "react-bootstrap";
  import { useForm } from "react-hook-form";
  import WhiteList from './WhiteList'
- 
+ import {urlContext} from '../web/Root'
  
  const AddWhite = () => {
 
-
+    const serverUrl = useContext(urlContext);
     const [bookData, setBookData] = useState();
 
     const [show, setShow] = useState(false);
@@ -52,10 +52,10 @@
 
 
 
-            let url = "http://192.168.195.213:8080/allow/add";
+            let fetchurl = serverUrl+"allow/add";
             query()
             function query() {
-                fetch(url, {
+                fetch(fetchurl, {
 
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

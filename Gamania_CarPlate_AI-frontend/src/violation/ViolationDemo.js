@@ -7,37 +7,33 @@
  *          上傳之前要把 192.168.195.213 > 192.168.195.213
  */
 import ReactTable from "./table/ReactTable";
-import { useState, useEffect} from "react";
+import { useState, useEffect,useContext} from "react";
 import { FormattedMessage } from "react-intl";
 import ImgButton from "./table/ImgButton";
+import {urlContext} from '../web/Root'
 
 
 
 export default function ViolationDemo() {
   const [tableData, setTableData] = useState("");
 
+  const serverUrl = useContext(urlContext);
+  console.log('serverUrl in violationDemo')
+  console.log(serverUrl)
 
-  const ip = window.location.host.split(":")[0];
 
-  //現場URL
-  const serverUrl = `http://${ip}:8080/`;
 
   useEffect(() => {
-    /**開發用 */
-    const url = "http://192.168.195.213:8080/lpr/all";
 
-    //const url = serverUrl+"lpr/all";
+     const fetchurl = serverUrl+"lpr/all";
 
-
-    console.log('url')
-  console.log(url)
     const fetchData = async () => {
         try {
-            const response = await fetch(url);
+            const response = await fetch(fetchurl);
             const data = await response.json();
 
             for (let i = 0; i < data.length; i++) {
-              const eTime0 = data[i]["imagePath"].replace("./", "/");
+              const eTime0 = data[i]["imagePath"].replace("./", "");
               data[i]["imagePath"] = eTime0;
             }
           

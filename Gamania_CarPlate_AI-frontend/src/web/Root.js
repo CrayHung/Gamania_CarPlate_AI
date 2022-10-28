@@ -6,12 +6,24 @@ import Menu from "./Menu";
 import { Main } from "./Main";
 
 import { IntlProvider } from "react-intl";
-import React, { useContext } from 'react';
+import React, { useContext ,createContext } from 'react';
 import { LangContext } from "../App";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "../tab/Login";
 import Regis from "../tab/Regis";
+
+const ip = window.location.host.split(":")[0];
+//現場URL
+const serverUrl = `http://${ip}:8080/`;
+//開發用
+// const serverUrl = "http://192.168.195.213:8080/";
+
+
+
+export const urlContext = createContext(serverUrl);
+ 
+
 
 export default function Root() {
   const { lang } = useContext(LangContext);
@@ -23,9 +35,13 @@ export default function Root() {
           <Routes>
             <Route path="*" element={
               <>
+
+
+              
                 <Header />
                 <Menu />
                 <Main />
+
               </>
             } />
 

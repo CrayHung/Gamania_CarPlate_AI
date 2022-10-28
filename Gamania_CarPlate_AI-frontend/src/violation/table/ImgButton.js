@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Modal, Image } from 'antd';
 import 'antd/dist/antd.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {urlContext} from '../../web/Root'
+
 
 
 function ImgButton(props) {
 
-  const ip = window.location.host.split(":")[0];
-  const serverUrl = `http://${ip}:8080`;
+  const serverUrl = useContext(urlContext);
   const imagePath = props.imagePath
 
   console.log('serverUrl+imagePath')
