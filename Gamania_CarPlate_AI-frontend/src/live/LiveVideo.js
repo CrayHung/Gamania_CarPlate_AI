@@ -20,7 +20,7 @@ export default function LiveVideo() {
   const sourceCar2 = `http://${ip}:8081/stream/cam2/index.m3u8`;
   const sourceCar3 = `http://${ip}:8081/stream/cam3/index.m3u8`;
 
-  console.log(sourceMotor);
+  // console.log(sourceMotor);
 
   const [cam1, setCam1] = useState({});
   const [cam2, setCam2] = useState({});
@@ -137,7 +137,7 @@ export default function LiveVideo() {
             <img
               alt=""
               // src={"http://192.168.195.213:8080" + cam4.imagePath}
-              src={`http://${ip}:8080/${cam4.imagePath}`}
+              src={`http://${ip}:8080${cam4.imagePath}`}
               width={"100%"}
             ></img>
           </div>
@@ -147,7 +147,7 @@ export default function LiveVideo() {
             <img
               alt=""
               // src={"http://192.168.195.213:8080" + cam1.imagePath}
-              src={`http://${ip}:8080/${cam1.imagePath}`}
+              src={`http://${ip}:8080${cam1.imagePath}`}
               width={"100%"}
             ></img>
           </div>
@@ -157,7 +157,7 @@ export default function LiveVideo() {
             <img
               alt=""
               // src={"http://192.168.195.213:8080" + cam2.imagePath}
-              src={`http://${ip}:8080/${cam2.imagePath}`}
+              src={`http://${ip}:8080${cam2.imagePath}`}
               width={"100%"}
             ></img>
           </div>
@@ -167,7 +167,7 @@ export default function LiveVideo() {
             <img
               alt=""
               // src={"http://192.168.195.213:8080" + cam3.imagePath}
-              src={`http://${ip}:8080/${cam3.imagePath}`}
+              src={`http://${ip}:8080${cam3.imagePath}`}
               width={"100%"}
             ></img>
           </div>
