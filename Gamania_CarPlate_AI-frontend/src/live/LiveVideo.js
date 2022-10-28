@@ -23,20 +23,37 @@ export default function LiveVideo() {
   const [cam3, setCam3] = useState({});
   const [cam4, setCam4] = useState({});
 
+  const cam_update = async () => {
+    // const res = await fetch("http://192.168.195.213:8080/lpr/cams/latest");
+    const res = await fetch("http://127.0.0.1:8080/lpr/cams/latest");
+    const res_tmp = await res.json();
+    res_tmp.cam4.imagePath = res_tmp.cam4.imagePath.substring(1);
+    res_tmp.cam1.imagePath = res_tmp.cam1.imagePath.substring(1);
+    res_tmp.cam2.imagePath = res_tmp.cam2.imagePath.substring(1);
+    res_tmp.cam3.imagePath = res_tmp.cam3.imagePath.substring(1);
+    setCam4(res_tmp.cam4);
+    setCam1(res_tmp.cam1);
+    setCam2(res_tmp.cam2);
+    setCam3(res_tmp.cam3);
+  };
+
   useEffect(() => {
-    (async () => {
-      // const res = await fetch("http://192.168.195.213:8080/lpr/cams/latest");
-      const res = await fetch("http://127.0.0.1:8080/lpr/cams/latest");
-      const res_tmp = await res.json();
-      res_tmp.cam4.imagePath = res_tmp.cam4.imagePath.substring(1);
-      res_tmp.cam1.imagePath = res_tmp.cam1.imagePath.substring(1);
-      res_tmp.cam2.imagePath = res_tmp.cam2.imagePath.substring(1);
-      res_tmp.cam3.imagePath = res_tmp.cam3.imagePath.substring(1);
-      setCam4(res_tmp.cam4);
-      setCam1(res_tmp.cam1);
-      setCam2(res_tmp.cam2);
-      setCam3(res_tmp.cam3);
-    })();
+    cam_update();
+
+    const wsUrl = "ws://127.0.0.1:8080/ws";
+    const ws = new WebSocket(wsUrl);
+
+    ws.onopen = () => {
+      console.log(`connected to ${wsUrl}`);
+    };
+
+    ws.onmessage = (msg) => {
+      const data = msg.data;
+      if (data === "update") {
+        // console.log(data);
+        cam_update();
+      }
+    };
   }, []);
 
   return (
@@ -52,8 +69,7 @@ export default function LiveVideo() {
               src={sourceMotor}
               autoPlay={true}
               muted={true}
-              width={350}
-              height={275}
+              width={"100%"}
             />
           </div>
         </div>
@@ -63,8 +79,7 @@ export default function LiveVideo() {
               src={sourceCar1}
               autoPlay={true}
               muted={true}
-              width={350}
-              height={275}
+              width={"100%"}
             />
           </div>
         </div>
@@ -75,8 +90,7 @@ export default function LiveVideo() {
                 src={sourceCar2}
                 autoPlay={true}
                 muted={true}
-                width={350}
-                height={275}
+                width={"100%"}
               />
             </div>
           </div>
@@ -88,8 +102,7 @@ export default function LiveVideo() {
                 src={sourceCar3}
                 autoPlay={true}
                 muted={true}
-                width={350}
-                height={275}
+                width={"100%"}
               />
             </div>
           </div>
@@ -99,9 +112,24 @@ export default function LiveVideo() {
         <div className="col">車辨畫面</div>
       </div>
       <div className="grid">
+        <div className="grid-item item1">
+          <div className="col">機車鏡頭</div>
+        </div>
+        <div className="grid-item item1">
+          <div className="col">汽車鏡頭左</div>
+        </div>
+        <div className="grid-item item1">
+          <div className="col">汽車鏡頭右</div>
+        </div>
+        <div className="grid-item item1">
+          <div className="col">汽車鏡頭（車尾）</div>
+        </div>
+      </div>
+      <div className="grid">
         <div className="grid-item item3">
           <div>
             <img
+              alt=""
               // src={"http://192.168.195.213:8080" + cam4.imagePath}
               src={cam4.imagePath}
               width={"100%"}
@@ -111,6 +139,7 @@ export default function LiveVideo() {
         <div className="grid-item item4">
           <div className="col">
             <img
+              alt=""
               // src={"http://192.168.195.213:8080" + cam1.imagePath}
               src={cam1.imagePath}
               width={"100%"}
@@ -120,6 +149,7 @@ export default function LiveVideo() {
         <div className="grid-item item4">
           <div className="col">
             <img
+              alt=""
               // src={"http://192.168.195.213:8080" + cam2.imagePath}
               src={cam2.imagePath}
               width={"100%"}
@@ -129,6 +159,7 @@ export default function LiveVideo() {
         <div className="grid-item item4">
           <div className="col">
             <img
+              alt=""
               // src={"http://192.168.195.213:8080" + cam3.imagePath}
               src={cam3.imagePath}
               width={"100%"}
