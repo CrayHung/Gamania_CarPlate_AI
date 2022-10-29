@@ -12,8 +12,8 @@ function ImgButton(props) {
   const serverUrl = useContext(urlContext);
   const imagePath = props.imagePath
 
-  console.log('serverUrl+imagePath')
-  console.log(serverUrl+imagePath)
+  // console.log('serverUrl+imagePath')
+  // console.log(serverUrl+imagePath)
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -32,7 +32,7 @@ function ImgButton(props) {
 return <>
     <button type="button" className="btn btn-primary btn-option" onClick={showModal}><FormattedMessage id="Img-btn" /></button>
     <Modal title={<FormattedMessage id="Img-btn" />} centered width={1000} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-		  <Image src={`serverUrl${imagePath}`} width={960} height={540} />
+		  <Image src={`${serverUrl}${imagePath}`} width={960} height={540} />
 		</Modal>
             </>
 }

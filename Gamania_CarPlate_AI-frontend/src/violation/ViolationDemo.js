@@ -18,8 +18,8 @@ export default function ViolationDemo() {
   const [tableData, setTableData] = useState("");
 
   const serverUrl = useContext(urlContext);
-  console.log('serverUrl in violationDemo')
-  console.log(serverUrl)
+  // console.log('serverUrl in violationDemo')
+  // console.log(serverUrl)
 
 
 
@@ -45,7 +45,7 @@ export default function ViolationDemo() {
 
     fetchData();
 }, []);
-console.log(tableData);
+// console.log(tableData);
 
 
 
