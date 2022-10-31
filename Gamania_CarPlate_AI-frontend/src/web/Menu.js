@@ -8,23 +8,35 @@ export default function Menu() {
 
       <ul className="nav nav-justified">
 
-       <li className="nav-item">
+        <li className="nav-item">
           <div className="nav-link">
-            <Link to={"/"}>
+            {/* <Link to={"/"}>
               <div className="nav-text">
                 <FormattedMessage id="menu-live" />  
               </div>
-            </Link>
+            </Link> */}
+
+            <a href="/">
+              <div className="nav-text">
+                <FormattedMessage id="menu-live" />
+              </div>
+            </a>
           </div>
         </li>
 
         <li className="nav-item">
           <div className="nav-link">
-            <Link to={"/violation"}>
+            {/* <Link to={"/violation"}>
               <div className="nav-text">
                 <FormattedMessage id="record-table-title" />
               </div>
-            </Link>
+            </Link> */}
+
+            <a href="/violation">
+              <div className="nav-text">
+                <FormattedMessage id="record-table-title" />
+              </div>
+            </a>
           </div>
         </li>
         {/* <li className="nav-item">
@@ -38,14 +50,20 @@ export default function Menu() {
         </li> */}
         <li className="nav-item">
           <div className="nav-link">
-            <Link to={"/book"}>
+            {/* <Link to={"/book"}>
               <div className="nav-text">
                 <FormattedMessage id="book-title" />
               </div>
-            </Link>
+            </Link> */}
+
+            <a href="/book">
+              <div className="nav-text">
+                <FormattedMessage id="book-title" />
+              </div>
+            </a>
           </div>
         </li>
- 
+
       </ul>
 
     </div>
