@@ -44,7 +44,7 @@ export default function ViolationDemo() {
     };
 
     fetchData();
-}, []);
+}, [tableData]);
 // console.log(tableData);
 
 

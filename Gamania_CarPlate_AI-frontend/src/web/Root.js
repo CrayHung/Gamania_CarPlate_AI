@@ -13,9 +13,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "../tab/Login";
 import Regis from "../tab/Regis";
 
-const ip = window.location.host.split(":")[0];
 //現場URL
+const ip = window.location.host.split(":")[0];
 const serverUrl = `http://${ip}:8080/`;
+
 //開發用
 // const serverUrl = "http://192.168.195.213:8080/";
 
