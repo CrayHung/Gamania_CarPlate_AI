@@ -37,7 +37,7 @@ export default function ViolationDemo() {
               data[i]["imagePath"] = eTime0;
             }
           
-            setTableData(data);
+            setTableData([...tableData,data]);
         } catch (error) {
             console.log("error", error);
         }

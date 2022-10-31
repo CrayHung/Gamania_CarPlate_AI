@@ -14,11 +14,11 @@ import Login from "../tab/Login";
 import Regis from "../tab/Regis";
 
 //現場URL
-const ip = window.location.host.split(":")[0];
-const serverUrl = `http://${ip}:8080/`;
+// const ip = window.location.host.split(":")[0];
+// const serverUrl = `http://${ip}:8080/`;
 
 //開發用
-// const serverUrl = "http://192.168.195.213:8080/";
+const serverUrl = "http://192.168.195.213:8080/";
 
 
 
