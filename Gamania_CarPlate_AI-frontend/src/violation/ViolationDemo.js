@@ -11,41 +11,57 @@ import { useState, useEffect,useContext} from "react";
 import { FormattedMessage } from "react-intl";
 import ImgButton from "./table/ImgButton";
 import {urlContext} from '../web/Root'
+import { CurrentTimeDisplay } from "video-react";
+import TimelineItem from "antd/lib/timeline/TimelineItem";
 
 
 
 export default function ViolationDemo() {
   const [tableData, setTableData] = useState("");
+  const [tmpData, setTmpData] = useState("");
 
   const serverUrl = useContext(urlContext);
   // console.log('serverUrl in violationDemo')
   // console.log(serverUrl)
 
-
+  const fetchurl = serverUrl+"lpr/all";
 
   useEffect(() => {
 
-     const fetchurl = serverUrl+"lpr/all";
-
     const fetchData = async () => {
+
         try {
             const response = await fetch(fetchurl);
             const data = await response.json();
 
-            for (let i = 0; i < data.length; i++) {
-              const eTime0 = data[i]["imagePath"].replace("./", "");
-              data[i]["imagePath"] = eTime0;
-            }
-          
-            setTableData([...tableData,data]);
+
+
+              for (let i = 0; i < data.length; i++) {
+                const eTime0 = data[i]["imagePath"].replace("./", "");
+                data[i]["imagePath"] = eTime0;
+              }
+              setTableData(data);
+              //setTableData([...tableData,data]);
+
+
+            
         } catch (error) {
             console.log("error", error);
         }
+
+        //每10秒重新抓一次資料
+        setInterval(() => {
+          fetchData();
+         }, 10000);
+
     };
 
     fetchData();
-}, [tableData]);
-// console.log(tableData);
+    setInterval(() => {
+      fetchData();
+     }, 10000);
+
+}, []);
 
 
 
