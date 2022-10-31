@@ -30,6 +30,7 @@ export default function ViolationDemo() {
 
     const fetchData = async () => {
 
+
         try {
             const response = await fetch(fetchurl);
             const data = await response.json();
@@ -50,16 +51,13 @@ export default function ViolationDemo() {
         }
 
         //每10秒重新抓一次資料
-        setInterval(() => {
-          fetchData();
-         }, 10000);
+        // setInterval(() => {
+        //   fetchData();
+        //  }, 10000);
 
     };
 
     fetchData();
-    setInterval(() => {
-      fetchData();
-     }, 10000);
 
 }, []);
 
