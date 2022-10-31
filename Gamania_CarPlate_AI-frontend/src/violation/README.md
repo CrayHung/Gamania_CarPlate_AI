@@ -35,7 +35,7 @@ http :8080/list
 
 hls 串流網址：
 ```
-http://127.0.0.1:8080/stream/cam2/index.m3u8
+http://192.168.195.213:8080/stream/cam2/index.m3u8
 ```
 
 > 重啟需要重架服務，可以用代號讓網址不變

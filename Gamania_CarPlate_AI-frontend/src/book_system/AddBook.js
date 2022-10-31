@@ -7,15 +7,19 @@
  * 
  * 
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useContext } from 'react';
 import { Modal, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import {BookContext} from './BOOK'
+import {urlContext} from '../web/Root'
 
 
 
 const AddBook = () => {
 
+    const serverUrl = useContext(urlContext);
 
+    const { tableData, setTableData } = useContext(BookContext);
 
 
     const [bookData, setBookData] = useState();
@@ -38,6 +42,7 @@ const AddBook = () => {
         data.visitorStartStr = tmpstartstr;
         data.visitorEndStr = tmpendstr;
         setBookData(data);
+        //setTableData(data);
         const finalData = data
 
 
@@ -53,10 +58,10 @@ const AddBook = () => {
 
 
 
-            let url = "http://127.0.0.1:8080/allow/add";
+            let fetchurl = serverUrl+"allow/add";
             query()
             function query() {
-                fetch(url, {
+                fetch(fetchurl, {
 
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -66,8 +71,8 @@ const AddBook = () => {
                     // .then(res => res.json())
                     // .catch(error => console.error('Error:', error))
                     .then(response => {
-
-
+                        
+                        setTableData([...tableData,data])
                         console.log('success', response);
                         handleClose();
                     }

@@ -1,49 +1,51 @@
 /***
  * 
  * 
- * fetch    http://127.0.0.1:8080/lpr/all
+ * fetch    http://192.168.195.213:8080/lpr/all
  * 
- * 圖片     http://127.0.0.1:8080/jpg/20221027_154658894_RCV-5981.jpg      (將./jpg/20221027_154658894_RCV-5981.jpg前面的.去掉)
- *          上傳之前要把 192.168.195.213 > 127.0.0.1
+ * 圖片     http://192.168.195.213:8080/jpg/20221027_154658894_RCV-5981.jpg      (將./jpg/20221027_154658894_RCV-5981.jpg前面的.去掉)
+ *          上傳之前要把 192.168.195.213 > 192.168.195.213
  */
 import ReactTable from "./table/ReactTable";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext} from "react";
 import { FormattedMessage } from "react-intl";
 import ImgButton from "./table/ImgButton";
-
-
-
+import {urlContext} from '../web/Root'
 
 
 
 export default function ViolationDemo() {
   const [tableData, setTableData] = useState("");
 
+  const serverUrl = useContext(urlContext);
+  // console.log('serverUrl in violationDemo')
+  // console.log(serverUrl)
 
 
 
   useEffect(() => {
-    const url = "http://127.0.0.1:8080/lpr/all";
+
+     const fetchurl = serverUrl+"lpr/all";
 
     const fetchData = async () => {
         try {
-            const response = await fetch(url);
+            const response = await fetch(fetchurl);
             const data = await response.json();
 
             for (let i = 0; i < data.length; i++) {
-              const eTime0 = data[i]["imagePath"].replace("./", "/");
+              const eTime0 = data[i]["imagePath"].replace("./", "");
               data[i]["imagePath"] = eTime0;
             }
           
-            setTableData(data);
+            setTableData([...tableData,data]);
         } catch (error) {
             console.log("error", error);
         }
     };
 
     fetchData();
-}, []);
-console.log(tableData);
+}, [tableData]);
+// console.log(tableData);
 
 
 
