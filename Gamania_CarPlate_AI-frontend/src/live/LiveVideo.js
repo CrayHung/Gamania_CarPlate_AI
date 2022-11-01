@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./LiveVideo.css";
 import ReactHlsPlayer from "react-hls-player";
+// import "antd/dist/antd.css";
+import MyModal from "./MyModal";
 // import LPR from "../lpr/LPR";
 
 export default function LiveVideo() {
@@ -14,7 +16,7 @@ export default function LiveVideo() {
 
   const ip = window.location.host.split(":")[0];
 
-  //現場URL
+  // //現場URL
   const sourceMotor = `http://${ip}:8081/stream/cam4/index.m3u8`;
   const sourceCar1 = `http://${ip}:8081/stream/cam1/index.m3u8`;
   const sourceCar2 = `http://${ip}:8081/stream/cam2/index.m3u8`;
@@ -55,15 +57,14 @@ export default function LiveVideo() {
     numberCam1.innerHTML = res_tmp.cam1.plateNumber;
     numberCam2.innerHTML = res_tmp.cam2.plateNumber;
     numberCam3.innerHTML = res_tmp.cam3.plateNumber;
-
   };
 
   useEffect(() => {
     cam_update();
 
-    // const wsUrl = `ws://192.168.195.213:8080/ws`;
-    const wsUrl = `ws://${ip}:8080/ws`;
-    
+    const wsUrl = `ws://192.168.195.213:8080/ws`;
+    // const wsUrl = `ws://${ip}:8080/ws`;
+
     const ws = new WebSocket(wsUrl);
 
     ws.onopen = () => {
@@ -78,6 +79,8 @@ export default function LiveVideo() {
       }
     };
   }, []);
+
+  //antd Modal
 
   return (
     <div>
@@ -154,50 +157,23 @@ export default function LiveVideo() {
           style={{ width: "100%", height: "100%" }}
         >
           <div>
-            <img
-              alt=""
-              // src={"http://192.168.195.213:8080" + cam4.imagePath}
-              // src={`http://${ip}:8080${cam4.imagePath}`}
-              src={""}
-              width={"100%"}
-              id={"image-cam4"}
-            ></img>
+            {/* document.getElementById("image-cam4").src */}
+            <MyModal imageId={"image-cam4"} />
           </div>
         </div>
         <div className="grid-item item4">
           <div className="col">
-            <img
-              alt=""
-              // src={"http://192.168.195.213:8080" + cam1.imagePath}
-              // src={`http://${ip}:8080${cam1.imagePath}`}
-              src={""}
-              width={"100%"}
-              id={"image-cam1"}
-            ></img>
+            <MyModal imageId={"image-cam1"} />
           </div>
         </div>
         <div className="grid-item item4">
           <div className="col">
-            <img
-              alt=""
-              // src={"http://192.168.195.213:8080" + cam2.imagePath}
-              // src={`http://${ip}:8080${cam2.imagePath}`}
-              src={""}
-              width={"100%"}
-              id={"image-cam2"}
-            ></img>
+            <MyModal imageId={"image-cam2"} />
           </div>
         </div>
         <div className="grid-item item4">
           <div className="col">
-            <img
-              alt=""
-              // src={"http://192.168.195.213:8080" + cam3.imagePath}
-              // src={`http://${ip}:8080${cam3.imagePath}`}
-              src={""}
-              width={"100%"}
-              id={"image-cam3"}
-            ></img>
+            <MyModal imageId={"image-cam3"} />
           </div>
         </div>
         <div className="grid-item item1">
