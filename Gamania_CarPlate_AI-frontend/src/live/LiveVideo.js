@@ -93,7 +93,12 @@ export default function LiveVideo() {
       const res = await fetch(`http://${ip}:8080/gate/scooter`);
       console.log("Open scooter: " + res.status);
 
-      alert("機車閘門開啟");
+      if(res.status === 200){
+        alert("機車閘門開啟");
+      }else{
+        alert("機車閘門請求錯誤");
+      }
+
     }catch(err){
       console.error(err);
       alert("機車閘門請求錯誤");
@@ -110,7 +115,12 @@ export default function LiveVideo() {
       const res = await fetch(`http://${ip}:8080/gate/car`);
       console.log("Open car: " + res.status);
 
-      alert("汽車閘門開啟");
+      if(res.status === 200){
+        alert("機車閘門開啟");
+      }else{
+        alert("機車閘門請求錯誤");
+      }
+
     }catch(err){
       console.error(err);
       alert("汽車閘門請求錯誤");
