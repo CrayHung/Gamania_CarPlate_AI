@@ -85,27 +85,35 @@ export default function LiveVideo() {
   /* 閘門控制 */
   const openScooter = async () => {
     try{
-      const setScooter = await fetch("http://172.18.1.250/set_relay_1.php@admin:admin");
-      console.log("Set scooter: " + setScooter.status);
-      const clearScooter = await fetch("http://172.18.1.250/clear_relay_1.php@admin:admin");
-      console.log("Clear scooter: " + clearScooter.status);
+      // const setScooter = await fetch("http://172.18.1.250/set_relay_1.php@admin:admin");
+      // console.log("Set scooter: " + setScooter.status);
+      // const clearScooter = await fetch("http://172.18.1.250/clear_relay_1.php@admin:admin");
+      // console.log("Clear scooter: " + clearScooter.status);
+
+      const res = await fetch(`http://${ip}:8080/gate/scooter`);
+      console.log("Open scooter: " + res.status);
 
       alert("機車閘門開啟");
     }catch(err){
       console.error(err);
+      alert("機車閘門請求錯誤");
     }
   }
 
   const openCar = async () => {
     try{
-      const setCar = await fetch("http://172.18.1.251/set_relay_1.php@admin:admin");
-      console.log("Set car: " + setCar.status);
-      const clearCar = await fetch("http://172.18.1.251/clear_relay_1.php@admin:admin");
-      console.log("Clear car: " + clearCar.status);
+      // const setCar = await fetch("http://172.18.1.251/set_relay_1.php@admin:admin");
+      // console.log("Set car: " + setCar.status);
+      // const clearCar = await fetch("http://172.18.1.251/clear_relay_1.php@admin:admin");
+      // console.log("Clear car: " + clearCar.status);
+
+      const res = await fetch(`http://${ip}:8080/gate/car`);
+      console.log("Open car: " + res.status);
 
       alert("汽車閘門開啟");
     }catch(err){
       console.error(err);
+      alert("汽車閘門請求錯誤");
     }
   }
 
