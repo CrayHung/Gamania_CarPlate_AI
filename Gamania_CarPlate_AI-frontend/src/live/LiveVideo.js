@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./LiveVideo.css";
 import ReactHlsPlayer from "react-hls-player";
@@ -22,13 +22,7 @@ export default function LiveVideo() {
 
   // console.log(sourceMotor);
 
-  const [cam1, setCam1] = useState({});
-  const [cam2, setCam2] = useState({});
-  const [cam3, setCam3] = useState({});
-  const [cam4, setCam4] = useState({});
-
   const cam_update = async () => {
-    const ip = window.location.host.split(":")[0];
     // const res = await fetch("http://192.168.195.213:8080/lpr/cams/latest");
     const res = await fetch(`http://${ip}:8080/lpr/cams/latest`);
     const res_tmp = await res.json();
@@ -36,18 +30,40 @@ export default function LiveVideo() {
     res_tmp.cam1.imagePath = res_tmp.cam1.imagePath.substring(1);
     res_tmp.cam2.imagePath = res_tmp.cam2.imagePath.substring(1);
     res_tmp.cam3.imagePath = res_tmp.cam3.imagePath.substring(1);
-    setCam4(res_tmp.cam4);
-    setCam1(res_tmp.cam1);
-    setCam2(res_tmp.cam2);
-    setCam3(res_tmp.cam3);
+
+    // lpr image
+    const imgCam4 = document.getElementById("image-cam4");
+    const imgCam1 = document.getElementById("image-cam1");
+    const imgCam2 = document.getElementById("image-cam2");
+    const imgCam3 = document.getElementById("image-cam3");
+    imgCam4.src = `http://${ip}:8080${res_tmp.cam4.imagePath}`;
+    imgCam1.src = `http://${ip}:8080${res_tmp.cam1.imagePath}`;
+    imgCam2.src = `http://${ip}:8080${res_tmp.cam2.imagePath}`;
+    imgCam3.src = `http://${ip}:8080${res_tmp.cam3.imagePath}`;
+
+    // imgCam4.src = `http://192.168.195.213:8080${res_tmp.cam4.imagePath}`;
+    // imgCam1.src = `http://192.168.195.213:8080${res_tmp.cam1.imagePath}`;
+    // imgCam2.src = `http://192.168.195.213:8080${res_tmp.cam2.imagePath}`;
+    // imgCam3.src = `http://192.168.195.213:8080${res_tmp.cam3.imagePath}`;
+
+    // lpr number
+    const numberCam4 = document.getElementById("number-cam4");
+    const numberCam1 = document.getElementById("number-cam1");
+    const numberCam2 = document.getElementById("number-cam2");
+    const numberCam3 = document.getElementById("number-cam3");
+    numberCam4.innerHTML = res_tmp.cam4.plateNumber;
+    numberCam1.innerHTML = res_tmp.cam1.plateNumber;
+    numberCam2.innerHTML = res_tmp.cam2.plateNumber;
+    numberCam3.innerHTML = res_tmp.cam3.plateNumber;
+
   };
 
   useEffect(() => {
-    const ip = window.location.host.split(":")[0];
-
     cam_update();
 
+    // const wsUrl = `ws://192.168.195.213:8080/ws`;
     const wsUrl = `ws://${ip}:8080/ws`;
+    
     const ws = new WebSocket(wsUrl);
 
     ws.onopen = () => {
@@ -141,8 +157,10 @@ export default function LiveVideo() {
             <img
               alt=""
               // src={"http://192.168.195.213:8080" + cam4.imagePath}
-              src={`http://${ip}:8080${cam4.imagePath}`}
+              // src={`http://${ip}:8080${cam4.imagePath}`}
+              src={""}
               width={"100%"}
+              id={"image-cam4"}
             ></img>
           </div>
         </div>
@@ -151,8 +169,10 @@ export default function LiveVideo() {
             <img
               alt=""
               // src={"http://192.168.195.213:8080" + cam1.imagePath}
-              src={`http://${ip}:8080${cam1.imagePath}`}
+              // src={`http://${ip}:8080${cam1.imagePath}`}
+              src={""}
               width={"100%"}
+              id={"image-cam1"}
             ></img>
           </div>
         </div>
@@ -161,8 +181,10 @@ export default function LiveVideo() {
             <img
               alt=""
               // src={"http://192.168.195.213:8080" + cam2.imagePath}
-              src={`http://${ip}:8080${cam2.imagePath}`}
+              // src={`http://${ip}:8080${cam2.imagePath}`}
+              src={""}
               width={"100%"}
+              id={"image-cam2"}
             ></img>
           </div>
         </div>
@@ -171,22 +193,24 @@ export default function LiveVideo() {
             <img
               alt=""
               // src={"http://192.168.195.213:8080" + cam3.imagePath}
-              src={`http://${ip}:8080${cam3.imagePath}`}
+              // src={`http://${ip}:8080${cam3.imagePath}`}
+              src={""}
               width={"100%"}
+              id={"image-cam3"}
             ></img>
           </div>
         </div>
         <div className="grid-item item1">
-          <div className="col">{cam4.plateNumber}</div>
+          <div className="col" id="number-cam4"></div>
         </div>
         <div className="grid-item item1">
-          <div className="col">{cam1.plateNumber}</div>
+          <div className="col" id="number-cam1"></div>
         </div>
         <div className="grid-item item1">
-          <div className="col">{cam2.plateNumber}</div>
+          <div className="col" id="number-cam2"></div>
         </div>
         <div className="grid-item item1">
-          <div className="col">{cam3.plateNumber}</div>
+          <div className="col" id="number-cam3"></div>
         </div>
       </div>
     </div>
