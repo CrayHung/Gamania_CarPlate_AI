@@ -82,8 +82,40 @@ export default function LiveVideo() {
 
   //antd Modal
 
+  /* 閘門控制 */
+  const openScooter = async () => {
+    try{
+      const setScooter = await fetch("http://172.18.1.250/set_relay_1.php@admin:admin");
+      console.log("Set scooter: " + setScooter.status);
+      const clearScooter = await fetch("http://172.18.1.250/clear_relay_1.php@admin:admin");
+      console.log("Clear scooter: " + clearScooter.status);
+
+      alert("機車閘門開啟");
+    }catch(err){
+      console.error(err);
+    }
+  }
+
+  const openCar = async () => {
+    try{
+      const setCar = await fetch("http://172.18.1.251/set_relay_1.php@admin:admin");
+      console.log("Set car: " + setCar.status);
+      const clearCar = await fetch("http://172.18.1.251/clear_relay_1.php@admin:admin");
+      console.log("Clear car: " + clearCar.status);
+
+      alert("汽車閘門開啟");
+    }catch(err){
+      console.error(err);
+    }
+  }
+
   return (
     <div>
+      <div style={{marginBottom: "5px"}}>
+        <button style={{ marginRight: "5px" }} onClick={() => {openScooter()}} >機車開門</button>
+        <button onClick={() => {openCar()}} >汽車開門</button>
+      </div>
+      
       <div className="grid-item grid-title">
         <div className="col">即時影像</div>
       </div>
