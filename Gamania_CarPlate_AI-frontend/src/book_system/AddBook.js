@@ -73,10 +73,12 @@ const AddBook = () => {
                     .then(response => {
                         
                         setTableData([...tableData,data])
-                        console.log('success', response);
                         handleClose();
-                    }
-                    );
+                        return response.text();
+                    })
+                    .then((text) => {
+                      console.log(text);
+                    });
             }
 
         }
