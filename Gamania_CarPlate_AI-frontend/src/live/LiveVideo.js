@@ -62,8 +62,8 @@ export default function LiveVideo() {
   useEffect(() => {
     cam_update();
 
-    const wsUrl = `ws://192.168.195.213:8080/ws`;
-    // const wsUrl = `ws://${ip}:8080/ws`;
+    // const wsUrl = `ws://192.168.195.213:8080/ws`;
+    const wsUrl = `ws://${ip}:8080/ws`;
 
     const ws = new WebSocket(wsUrl);
 
