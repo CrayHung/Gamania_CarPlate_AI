@@ -1,0 +1,21 @@
+.grid-container{
+  display: grid;
+  grid-template-columns: max-content auto max-content auto max-content auto max-content auto max-content;
+  grid-template-rows: max-content;
+  padding: 2px;
+  gap: 2px;
+  background-color:  rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.grid-container > div{
+  display:flex;
+  background-color: #fff;
+  padding: 5px;
+  align-items: center;
+}
+
+.date-container{
+  display: grid;
+  grid-template-rows: auto auto;
+}
