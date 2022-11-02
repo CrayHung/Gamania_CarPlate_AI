@@ -7,19 +7,19 @@
  *          上傳之前要把 192.168.195.213 > 192.168.195.213
  */
 import ReactTable from "./table/ReactTable";
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { FormattedMessage } from "react-intl";
 import ImgButton from "./table/ImgButton";
 import { urlContext } from "../web/Root";
-import { CurrentTimeDisplay } from "video-react";
-import TimelineItem from "antd/lib/timeline/TimelineItem";
+// import { CurrentTimeDisplay } from "video-react";
+// import TimelineItem from "antd/lib/timeline/TimelineItem";
 import SearchBar from "./search/SearchBar";
 import { TableContext } from "../tab/Violation";
 
 export default function ViolationDemo() {
   // const [tableData, setTableData] = useState("");
   const { tableData, setTableData } = useContext(TableContext);
-  const [tmpData, setTmpData] = useState("");
+  // const [tmpData, setTmpData] = useState("");
 
   const serverUrl = useContext(urlContext);
   // console.log('serverUrl in violationDemo')
@@ -51,7 +51,7 @@ export default function ViolationDemo() {
     };
 
     fetchData();
-  }, []);
+  }, [fetchurl, setTableData]);
 
   return (
     <div className="App">

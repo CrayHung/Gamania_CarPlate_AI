@@ -1,7 +1,7 @@
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import ViolationDemo from "../violation/ViolationDemo";
 import { FormattedMessage, useIntl } from "react-intl";
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState } from "react";
 
 export const TableContext = createContext();
 

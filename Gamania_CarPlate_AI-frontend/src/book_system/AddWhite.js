@@ -1,22 +1,13 @@
-/**
- * 
- * 限制欄位輸出還沒做好就能傳出
- * 
- * 
- * 
- * 
- * 
- */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Modal, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import WhiteList from './WhiteList'
 import { urlContext } from '../web/Root'
+import { BookContext } from "../tab/Book";
 
 const AddWhite = () => {
 
   const serverUrl = useContext(urlContext);
-  const [bookData, setBookData] = useState();
+  // const [bookData, setBookData] = useState();
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -24,66 +15,40 @@ const AddWhite = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
+  const { setBookData } = useContext(BookContext);
+
+  const updateTable = async () => {
+    try {
+      /* dev */
+      // const res = await fetch("http://192.168.195.213:8080/allow/all");
+
+      /* deployment */
+      const res = await fetch(serverUrl + "allow/all");
+
+      setBookData(await res.json());
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   /**表單送出 */
   const onSubmit = (data) => {
-
-    // let tmpstartstr = ''
-    // let tmpendstr = ''
-    // let str = ''
-    // tmpstartstr = data.visitorStartStr.replace("T", " ");
-    // tmpendstr = data.visitorEndStr.replace("T", " ");
-    // // str = tmpstr + ':00'
-    // data.visitorStartStr = tmpstartstr;
-    // data.visitorEndStr = tmpendstr;
-    setBookData(data);
-    const finalData = data
-
-
-    console.log(data.visitorStartStr)
-    console.log(data.visitorEndStr)
-
-    console.log("送出的資料是");
-    //console.log(bookData);
-    console.log(finalData);
-
-
-    // const savebackDB = async () => {
-    //   let fetchurl = serverUrl + "allow/add";
-    //   query()
-    //   function query() {
-    //     fetch(fetchurl, {
-
-    //       method: 'POST',
-    //       headers: { 'Content-Type': 'application/json' },
-    //       body: JSON.stringify(finalData)
-
-    //     })
-    //       // .then(res => res.json())
-    //       // .catch(error => console.error('Error:', error))
-    //       .then(response => {
-
-
-    //         console.log('success', response);
-    //         handleClose();
-    //       }
-    //       );
-    //   }
-
-    // }
-    // savebackDB();
-
     (async () => {
       try {
+        /* dev */
+        // const res = await fetch(`http://192.168.195.213:8080/allow/add`, {
+
+        /* deployment */
         const res = await fetch(`${serverUrl}allow/add`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(finalData)
+          body: JSON.stringify(data)
         });
 
         console.log(await res.text());
+        updateTable();
         handleClose();
       } catch (err) {
         console.log(err);
@@ -107,9 +72,9 @@ const AddWhite = () => {
 
 
           <Modal.Body>
-            <div className="right">
+            {/* <div className="right">
               <WhiteList ></WhiteList>
-            </div>
+            </div> */}
 
             <div className="left">
 
