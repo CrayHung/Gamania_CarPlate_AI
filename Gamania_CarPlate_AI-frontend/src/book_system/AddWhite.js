@@ -1,35 +1,19 @@
 import React, { useState, useContext } from 'react';
 import { Modal, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { urlContext } from '../web/Root'
+import { urlContext } from '../web/Root';
 import { BookContext } from "../tab/Book";
+import { updateTable } from "./BOOK";
 
 const AddWhite = () => {
 
   const serverUrl = useContext(urlContext);
-  // const [bookData, setBookData] = useState();
-
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const { setBookData } = useContext(BookContext);
-
-  const updateTable = async () => {
-    try {
-      /* dev */
-      // const res = await fetch("http://192.168.195.213:8080/allow/all");
-
-      /* deployment */
-      const res = await fetch(serverUrl + "allow/all");
-
-      setBookData(await res.json());
-    } catch (err) {
-      console.error(err);
-    }
-  }
 
   /**表單送出 */
   const onSubmit = (data) => {
@@ -46,20 +30,19 @@ const AddWhite = () => {
           },
           body: JSON.stringify(data)
         });
-
         console.log(await res.text());
-        updateTable();
+
+        setBookData(await updateTable());
+
         handleClose();
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     })();
-
   }
 
   return (
     <div>
-
       <Button variant="primary" style={{ margin: "8px" }} onClick={handleShow}>
         新增白名單車輛
       </Button>
@@ -130,8 +113,6 @@ const AddWhite = () => {
           </Modal.Footer>
         </form>
       </Modal>
-
-
     </div >
   );
 }
