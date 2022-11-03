@@ -1,29 +1,15 @@
-/***
- *
- *
- * fetch    http://192.168.195.213:8080/lpr/all
- *
- * 圖片     http://192.168.195.213:8080/jpg/20221027_154658894_RCV-5981.jpg      (將./jpg/20221027_154658894_RCV-5981.jpg前面的.去掉)
- *          上傳之前要把 192.168.195.213 > 192.168.195.213
- */
 import ReactTable from "./table/ReactTable";
 import { useEffect, useContext } from "react";
 import { FormattedMessage } from "react-intl";
 import ImgButton from "./table/ImgButton";
 import { urlContext } from "../web/Root";
-// import { CurrentTimeDisplay } from "video-react";
-// import TimelineItem from "antd/lib/timeline/TimelineItem";
 import SearchBar from "./search/SearchBar";
 import { TableContext } from "../tab/Violation";
 
 export default function ViolationDemo() {
-  // const [tableData, setTableData] = useState("");
   const { tableData, setTableData } = useContext(TableContext);
-  // const [tmpData, setTmpData] = useState("");
 
   const serverUrl = useContext(urlContext);
-  // console.log('serverUrl in violationDemo')
-  // console.log(serverUrl)
 
   const fetchurl = serverUrl + "lpr/all";
   // const fetchurl = "http://192.168.195.213:8080/lpr/all";

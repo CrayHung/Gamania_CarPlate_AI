@@ -19,7 +19,7 @@ export default function BookList() {
                 // const res = await fetch("http://192.168.195.213:8080/allow/all");
 
                 /* deployment */
-                  const res = await fetch(serverUrl + "allow/all");
+                const res = await fetch(serverUrl + "allow/all");
                 
                 setBookData(await res.json());
             } catch (err) {

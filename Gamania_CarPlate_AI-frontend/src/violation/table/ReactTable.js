@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { createContext, useState, useContext } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
+import './css/table.css';
 
 
 const ActiveContext = createContext();

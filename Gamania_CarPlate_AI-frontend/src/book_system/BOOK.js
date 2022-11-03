@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FormattedMessage } from "react-intl";
+// import { FormattedMessage } from "react-intl";
 
 import AddBook from './AddBook';
 import AddWhite from './AddWhite'
@@ -11,9 +11,9 @@ export default function BOOK() {
 
   return (
     <div className="App">
-      <h1>
+      {/* <h1>
         <FormattedMessage id="book-table-title" />
-      </h1>
+      </h1> */}
  
       <div className='rowC'>
 

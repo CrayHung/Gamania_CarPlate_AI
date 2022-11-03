@@ -1,0 +1,7 @@
+ul.pagination li.page-item .page-link {
+  text-align: center;
+}
+
+ul.pagination li.page-item:not(:first-child):not(:last-child) {
+  min-width: 53px;
+}
