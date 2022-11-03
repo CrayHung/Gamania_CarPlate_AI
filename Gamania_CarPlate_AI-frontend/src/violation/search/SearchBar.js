@@ -3,8 +3,8 @@ import "./SearchBar.css";
 import { TableContext } from "../../tab/Violation";
 
 function timeReset() {
-  document.getElementById("start-time").value = "";
-  document.getElementById("end-time").value = "";
+  document.getElementById("start-date").value = "";
+  document.getElementById("end-date").value = "";
 }
 
 const SearchBar = () => {
