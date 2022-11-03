@@ -6,7 +6,6 @@ import { urlContext } from '../web/Root'
 import { updateTable } from './BOOK';
 
 const AddBook = () => {
-
   const serverUrl = useContext(urlContext);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -29,13 +28,13 @@ const AddBook = () => {
         /* dev */
         // const res = await fetch(`http://192.168.195.213:8080/allow/add`, {
 
-          /* deployment */
-          const res = await fetch(`${serverUrl}allow/add`, {
-          method: 'POST',
+        /* deployment */
+        const res = await fetch(`${serverUrl}allow/add`, {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify(data),
         });
 
         console.log(await res.text());
@@ -63,17 +62,28 @@ const AddBook = () => {
           <Modal.Body>
             <div>
               <span>姓名: </span>
-              <input placeholder='不可空白' defaultValue={null} {...register("name", { required: true, maxLength: 10 })} />
+              <input
+                placeholder="不可空白"
+                defaultValue={null}
+                {...register("name", { required: true, maxLength: 10 })}
+              />
             </div>
             <div>
               <span>單位: </span>
-              <input placeholder='無 ' defaultValue={null}  {...register("unit")} />
+              <input
+                placeholder="無 "
+                defaultValue={null}
+                {...register("unit")}
+              />
             </div>
             <div>
               <span>車種: </span>
               {/* <input placeholder='摩托車' defaultValue={null} {...register("vehicleType")} /> */}
-              <select defaultValue={'機車'} {...register("vehicleType", { required: true })}>
-                <option value="機車" >機車</option>
+              <select
+                defaultValue={"機車"}
+                {...register("vehicleType", { required: true })}
+              >
+                <option value="機車">機車</option>
                 <option value="汽車">汽車</option>
               </select>
             </div>
@@ -82,19 +92,28 @@ const AddBook = () => {
             </div>
             <div>
               <span>備註: </span>
-              <input placeholder='' defaultValue={null} {...register("note")} />
+              <input placeholder="" defaultValue={null} {...register("note")} />
             </div>
             <div>
               <span>車號: </span>
-              <input placeholder='不可為空' {...register("plateNumber", { required: true })} />
+              <input
+                placeholder="不可為空"
+                {...register("plateNumber", { required: true })}
+              />
             </div>
             <div>
               <span>預約開始時間: </span>
-              <input type="datetime-local"  {...register("visitorStartStr", { required: true })} />
+              <input
+                type="datetime-local"
+                {...register("visitorStartStr", { required: true })}
+              />
             </div>
             <div>
               <span>預約結束時間: </span>
-              <input type="datetime-local"  {...register("visitorEndStr", { required: true })} />
+              <input
+                type="datetime-local"
+                {...register("visitorEndStr", { required: true })}
+              />
             </div>
             {errors.exampleRequired && <span>必須輸入</span>}
           </Modal.Body>
@@ -102,15 +121,15 @@ const AddBook = () => {
             <Button variant="secondary" onClick={handleClose}>
               關閉
             </Button>
-            <Button variant="primary" type="submit" >
+            <Button variant="primary" type="submit">
               提交預約
             </Button>
-            <>預約成功視窗關閉</>
+            {/* <>預約成功視窗關閉</> */}
           </Modal.Footer>
         </form>
       </Modal>
     </div >
   );
-}
+};
 
 export default AddBook;
