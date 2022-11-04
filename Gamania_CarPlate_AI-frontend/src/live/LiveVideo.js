@@ -116,9 +116,9 @@ export default function LiveVideo() {
       console.log("Open car: " + res.status);
 
       if(res.status === 200){
-        alert("機車閘門開啟");
+        alert("汽車閘門開啟");
       }else{
-        alert("機車閘門請求錯誤");
+        alert("汽車閘門請求錯誤");
       }
 
     }catch(err){
