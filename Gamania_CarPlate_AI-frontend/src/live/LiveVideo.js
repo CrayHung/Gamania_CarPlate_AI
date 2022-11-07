@@ -6,6 +6,65 @@ import ReactHlsPlayer from "react-hls-player";
 import MyModal from "./MyModal";
 // import LPR from "../lpr/LPR";
 
+const ip = window.location.host.split(":")[0];
+
+async function cam_update() {
+  const ip = window.location.host.split(":")[0];
+
+  // const res = await fetch("http://192.168.195.213:8080/lpr/cams/latest");
+  const res = await fetch(`http://${ip}:8080/lpr/cams/latest`);
+  const res_tmp = await res.json();
+  res_tmp.cam4.imagePath = res_tmp.cam4.imagePath.substring(1);
+  res_tmp.cam1.imagePath = res_tmp.cam1.imagePath.substring(1);
+  res_tmp.cam2.imagePath = res_tmp.cam2.imagePath.substring(1);
+  res_tmp.cam3.imagePath = res_tmp.cam3.imagePath.substring(1);
+
+  // add thumbnail path
+  res_tmp.cam4.imagePath = addThumbnailPath(res_tmp.cam4.imagePath);
+  res_tmp.cam1.imagePath = addThumbnailPath(res_tmp.cam1.imagePath);
+  res_tmp.cam2.imagePath = addThumbnailPath(res_tmp.cam2.imagePath);
+  res_tmp.cam3.imagePath = addThumbnailPath(res_tmp.cam3.imagePath);
+
+  // lpr image
+  const imgCam4 = document.getElementById("image-cam4");
+  const imgCam1 = document.getElementById("image-cam1");
+  const imgCam2 = document.getElementById("image-cam2");
+  const imgCam3 = document.getElementById("image-cam3");
+  imgCam4.src = `http://${ip}:8080${res_tmp.cam4.imagePath}`;
+  imgCam1.src = `http://${ip}:8080${res_tmp.cam1.imagePath}`;
+  imgCam2.src = `http://${ip}:8080${res_tmp.cam2.imagePath}`;
+  imgCam3.src = `http://${ip}:8080${res_tmp.cam3.imagePath}`;
+
+  // imgCam4.src = `http://192.168.195.213:8080${res_tmp.cam4.imagePath}`;
+  // imgCam1.src = `http://192.168.195.213:8080${res_tmp.cam1.imagePath}`;
+  // imgCam2.src = `http://192.168.195.213:8080${res_tmp.cam2.imagePath}`;
+  // imgCam3.src = `http://192.168.195.213:8080${res_tmp.cam3.imagePath}`;
+
+  // lpr number
+  const numberCam4 = document.getElementById("number-cam4");
+  const numberCam1 = document.getElementById("number-cam1");
+  const numberCam2 = document.getElementById("number-cam2");
+  const numberCam3 = document.getElementById("number-cam3");
+  numberCam4.innerHTML = res_tmp.cam4.plateNumber;
+  numberCam1.innerHTML = res_tmp.cam1.plateNumber;
+  numberCam2.innerHTML = res_tmp.cam2.plateNumber;
+  numberCam3.innerHTML = res_tmp.cam3.plateNumber;
+}
+
+/*** 
+ * /jpg/20221107/cam2/20221107_152254605_ABB-6603.jpg
+ *  
+ * to
+ * 
+ * /jpg/20221107/cam2/thumbnail/20221107_152254605_ABB-6603.jpg 
+ ***/
+ function addThumbnailPath(path) {
+  const arr = path.split('/');
+  arr.splice(4, 0, 'thumbnail');
+  
+  return arr.join('/');
+}
+
 export default function LiveVideo() {
   //開發用URL
 
@@ -14,8 +73,6 @@ export default function LiveVideo() {
   // const sourceCar2 = "http://192.168.195.213:8081/stream/cam2/index.m3u8";
   // const sourceCar3 = "http://192.168.195.213:8081/stream/cam3/index.m3u8";
 
-  const ip = window.location.host.split(":")[0];
-
   // //現場URL
   const sourceMotor = `http://${ip}:8081/stream/cam4/index.m3u8`;
   const sourceCar1 = `http://${ip}:8081/stream/cam1/index.m3u8`;
@@ -23,41 +80,6 @@ export default function LiveVideo() {
   const sourceCar3 = `http://${ip}:8081/stream/cam3/index.m3u8`;
 
   // console.log(sourceMotor);
-
-  const cam_update = async () => {
-    // const res = await fetch("http://192.168.195.213:8080/lpr/cams/latest");
-    const res = await fetch(`http://${ip}:8080/lpr/cams/latest`);
-    const res_tmp = await res.json();
-    res_tmp.cam4.imagePath = res_tmp.cam4.imagePath.substring(1);
-    res_tmp.cam1.imagePath = res_tmp.cam1.imagePath.substring(1);
-    res_tmp.cam2.imagePath = res_tmp.cam2.imagePath.substring(1);
-    res_tmp.cam3.imagePath = res_tmp.cam3.imagePath.substring(1);
-
-    // lpr image
-    const imgCam4 = document.getElementById("image-cam4");
-    const imgCam1 = document.getElementById("image-cam1");
-    const imgCam2 = document.getElementById("image-cam2");
-    const imgCam3 = document.getElementById("image-cam3");
-    imgCam4.src = `http://${ip}:8080${res_tmp.cam4.imagePath}`;
-    imgCam1.src = `http://${ip}:8080${res_tmp.cam1.imagePath}`;
-    imgCam2.src = `http://${ip}:8080${res_tmp.cam2.imagePath}`;
-    imgCam3.src = `http://${ip}:8080${res_tmp.cam3.imagePath}`;
-
-    // imgCam4.src = `http://192.168.195.213:8080${res_tmp.cam4.imagePath}`;
-    // imgCam1.src = `http://192.168.195.213:8080${res_tmp.cam1.imagePath}`;
-    // imgCam2.src = `http://192.168.195.213:8080${res_tmp.cam2.imagePath}`;
-    // imgCam3.src = `http://192.168.195.213:8080${res_tmp.cam3.imagePath}`;
-
-    // lpr number
-    const numberCam4 = document.getElementById("number-cam4");
-    const numberCam1 = document.getElementById("number-cam1");
-    const numberCam2 = document.getElementById("number-cam2");
-    const numberCam3 = document.getElementById("number-cam3");
-    numberCam4.innerHTML = res_tmp.cam4.plateNumber;
-    numberCam1.innerHTML = res_tmp.cam1.plateNumber;
-    numberCam2.innerHTML = res_tmp.cam2.plateNumber;
-    numberCam3.innerHTML = res_tmp.cam3.plateNumber;
-  };
 
   useEffect(() => {
     cam_update();

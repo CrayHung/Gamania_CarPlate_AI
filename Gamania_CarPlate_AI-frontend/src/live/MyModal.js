@@ -8,7 +8,9 @@ const MyModal = (prop) => {
 
   const showModal = () => {
     setIsModalOpen(true);
-    setImageSrc(document.getElementById(prop.imageId).src);
+
+    const imageSrc = document.getElementById(prop.imageId).src.replace('thumbnail/', '');
+    setImageSrc(imageSrc);
   };
 
   const handleOk = () => {
